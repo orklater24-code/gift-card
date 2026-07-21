@@ -3,183 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RewardVault™ | Exclusive Gift Card Rewards Center</title>
-    <meta name="description" content="Claim your exclusive gift card rewards. Limited time offers from top brands for US, Canada & UK residents.">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎁</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Digital Rewards Program | Survey & Offers Platform</title>
+    <meta name="description" content="Participate in market research surveys and promotional offers to earn digital rewards from our advertising partners.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
             --primary: #6C63FF;
-            --primary-dark: #5A52D5;
             --accent: #00D4AA;
-            --accent-glow: rgba(0, 212, 170, 0.3);
-            --gold: #FFD700;
             --dark-bg: #0a0a1a;
             --card-bg: #12122a;
             --card-border: rgba(108, 99, 255, 0.2);
             --text-primary: #FFFFFF;
             --text-secondary: #a0a0c0;
             --gradient-1: linear-gradient(135deg, #6C63FF 0%, #00D4AA 100%);
-            --gradient-2: linear-gradient(135deg, #FF6B6B 0%, #FFD700 100%);
-            --gradient-3: linear-gradient(135deg, #00D4AA 0%, #00B4D8 100%);
-            --galaxy-1: radial-gradient(ellipse at 20% 50%, rgba(108, 99, 255, 0.15) 0%, transparent 50%);
-            --galaxy-2: radial-gradient(ellipse at 80% 20%, rgba(0, 212, 170, 0.1) 0%, transparent 50%);
-            --galaxy-3: radial-gradient(ellipse at 50% 80%, rgba(255, 107, 107, 0.08) 0%, transparent 50%);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
             background: var(--dark-bg);
             color: var(--text-primary);
             overflow-x: hidden;
-            min-height: 100vh;
+            line-height: 1.6;
         }
 
         /* Galaxy Background */
         .galaxy-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 0;
             background: 
-                var(--galaxy-1),
-                var(--galaxy-2),
-                var(--galaxy-3),
+                radial-gradient(ellipse at 20% 50%, rgba(108, 99, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 212, 170, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(255, 107, 107, 0.08) 0%, transparent 50%),
                 var(--dark-bg);
         }
 
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-        }
-
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; }
         .star {
             position: absolute;
-            width: 2px;
-            height: 2px;
+            width: 2px; height: 2px;
             background: white;
             border-radius: 50%;
             animation: twinkle var(--duration) infinite;
             opacity: 0;
         }
-
         @keyframes twinkle {
             0%, 100% { opacity: 0; }
             50% { opacity: var(--opacity); }
         }
 
-        .floating-orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: 0;
-            animation: floatOrb 20s ease-in-out infinite;
-        }
+        .content-wrapper { position: relative; z-index: 1; }
 
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: rgba(108, 99, 255, 0.12);
-            top: -100px;
-            left: -100px;
-            animation-delay: 0s;
-        }
-
-        .orb-2 {
-            width: 300px;
-            height: 300px;
-            background: rgba(0, 212, 170, 0.08);
-            top: 50%;
-            right: -100px;
-            animation-delay: -7s;
-        }
-
-        .orb-3 {
-            width: 350px;
-            height: 350px;
-            background: rgba(255, 107, 107, 0.06);
-            bottom: -100px;
-            left: 30%;
-            animation-delay: -14s;
-        }
-
-        @keyframes floatOrb {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(30px, -30px) scale(1.1); }
-            50% { transform: translate(-20px, 20px) scale(0.95); }
-            75% { transform: translate(20px, 10px) scale(1.05); }
-        }
-
-        /* Content wrapper */
-        .content-wrapper {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Top Banner */
-        .top-banner {
-            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 50%, var(--primary) 100%);
-            background-size: 200% auto;
-            animation: shimmerBanner 3s linear infinite;
-            padding: 10px 20px;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            color: white;
-        }
-
-        @keyframes shimmerBanner {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
-
-        .top-banner i {
-            margin: 0 8px;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        /* Navigation */
+        /* Navbar */
         .navbar {
             background: rgba(10, 10, 26, 0.85);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--card-border);
             padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            transition: all 0.3s ease;
         }
-
-        .navbar.scrolled {
-            padding: 10px 0;
-            background: rgba(10, 10, 26, 0.95);
-        }
-
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -188,26 +76,21 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
             text-decoration: none;
         }
-
         .logo-icon {
-            width: 42px;
-            height: 42px;
+            width: 42px; height: 42px;
             background: var(--gradient-1);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
+            font-size: 22px;
         }
-
         .logo-text {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 22px;
@@ -215,73 +98,20 @@
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-
-        .logo-badge {
-            background: var(--accent);
-            color: var(--dark-bg);
-            font-size: 9px;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 4px;
-            letter-spacing: 1px;
-            margin-top: -8px;
-        }
-
         .nav-links {
             display: flex;
-            align-items: center;
             gap: 30px;
             list-style: none;
         }
-
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
             transition: color 0.3s;
-            position: relative;
         }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-1);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-cta {
-            background: var(--gradient-1) !important;
-            color: white !important;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-weight: 600 !important;
-            transition: transform 0.3s, box-shadow 0.3s !important;
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(108, 99, 255, 0.4);
-        }
-
-        .nav-cta::after {
-            display: none !important;
-        }
-
+        .nav-links a:hover { color: var(--text-primary); }
         .mobile-toggle {
             display: none;
             background: none;
@@ -291,14 +121,13 @@
             cursor: pointer;
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
             padding: 80px 20px 60px;
             text-align: center;
             max-width: 900px;
             margin: 0 auto;
         }
-
         .hero-badge {
             display: inline-flex;
             align-items: center;
@@ -311,81 +140,27 @@
             font-weight: 600;
             color: var(--primary);
             margin-bottom: 30px;
-            animation: fadeInDown 0.8s ease;
         }
-
-        .hero-badge .dot {
-            width: 8px;
-            height: 8px;
-            background: #00ff88;
-            border-radius: 50%;
-            animation: blink 1.5s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
         .hero h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(36px, 6vw, 64px);
+            font-size: clamp(36px, 6vw, 56px);
             font-weight: 800;
-            line-height: 1.1;
+            line-height: 1.15;
             margin-bottom: 24px;
-            animation: fadeInUp 0.8s ease 0.2s both;
         }
-
         .hero h1 .highlight {
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-
-        .hero h1 .highlight-2 {
-            background: var(--gradient-2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
         .hero p {
-            font-size: 18px;
+            font-size: 17px;
             color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 40px;
-            animation: fadeInUp 0.8s ease 0.4s both;
+            margin-bottom: 35px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin-bottom: 40px;
-            animation: fadeInUp 0.8s ease 0.5s both;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 32px;
-            font-weight: 700;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-
         .hero-cta {
             display: inline-flex;
             align-items: center;
@@ -399,136 +174,47 @@
             text-decoration: none;
             transition: all 0.3s;
             box-shadow: 0 8px 30px rgba(108, 99, 255, 0.4);
-            animation: fadeInUp 0.8s ease 0.6s both;
         }
-
         .hero-cta:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 40px rgba(108, 99, 255, 0.5);
         }
 
-        .hero-cta i {
-            transition: transform 0.3s;
-        }
-
-        .hero-cta:hover i {
-            transform: translateX(4px);
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Trust Bar */
-        .trust-bar {
+        /* Info Bar */
+        .info-bar {
             padding: 30px 20px;
             text-align: center;
             border-top: 1px solid var(--card-border);
             border-bottom: 1px solid var(--card-border);
             background: rgba(18, 18, 42, 0.5);
         }
-
-        .trust-bar-label {
+        .info-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        .info-stat h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .info-stat p {
             font-size: 12px;
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-        }
-
-        .trust-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            opacity: 0.6;
-        }
-
-        .trust-logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .trust-logo i {
-            font-size: 24px;
-        }
-
-        /* Countdown Timer */
-        .countdown-section {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .countdown-wrapper {
-            max-width: 700px;
-            margin: 0 auto;
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%);
-            border: 1px solid rgba(255, 107, 107, 0.2);
-            border-radius: 20px;
-            padding: 30px;
-        }
-
-        .countdown-title {
-            font-size: 14px;
-            color: #FF6B6B;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-
-        .countdown-subtitle {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .countdown-timer {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .countdown-box {
-            background: rgba(10, 10, 26, 0.8);
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            border-radius: 12px;
-            padding: 15px 20px;
-            min-width: 75px;
-        }
-
-        .countdown-box .number {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
-            color: #FF6B6B;
-        }
-
-        .countdown-box .label {
-            font-size: 11px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: 4px;
+            margin-top: 5px;
         }
 
-        /* Section Headers */
+        /* Section Header */
         .section-header {
             text-align: center;
             margin-bottom: 50px;
         }
-
         .section-tag {
             display: inline-flex;
             align-items: center;
@@ -544,14 +230,12 @@
             letter-spacing: 1px;
             margin-bottom: 15px;
         }
-
         .section-header h2 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(28px, 4vw, 42px);
+            font-size: clamp(28px, 4vw, 40px);
             font-weight: 800;
             margin-bottom: 15px;
         }
-
         .section-header p {
             font-size: 16px;
             color: var(--text-secondary);
@@ -559,101 +243,47 @@
             margin: 0 auto;
         }
 
-        /* Gift Cards Section */
-        .cards-section {
+        /* Offers Section */
+        .offers-section {
             padding: 80px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
-
-        .cards-grid {
+        .offers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
         }
-
-        .gift-card {
+        .offer-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 20px;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s;
             position: relative;
         }
-
-        .gift-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-1);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .gift-card:hover {
+        .offer-card:hover {
             transform: translateY(-8px);
             border-color: rgba(108, 99, 255, 0.4);
             box-shadow: 0 20px 60px rgba(108, 99, 255, 0.15);
         }
-
-        .gift-card:hover::before {
-            opacity: 1;
-        }
-
-        .card-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--gradient-2);
-            color: var(--dark-bg);
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 50px;
-            z-index: 2;
-        }
-
-        .card-popular {
-            background: var(--gradient-1);
-            color: white;
-        }
-
-        .card-image {
-            height: 180px;
+        .offer-image {
+            height: 160px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-image-bg {
-            position: absolute;
-            inset: 0;
-            opacity: 0.15;
-        }
-
-        .card-brand-icon {
             font-size: 60px;
-            z-index: 1;
-            filter: drop-shadow(0 5px 20px rgba(0,0,0,0.3));
+            position: relative;
         }
+        .bg-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .bg-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .bg-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .bg-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .bg-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .bg-6 { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
 
-        .amazon-bg { background: linear-gradient(135deg, #FF9900 0%, #232F3E 100%); }
-        .apple-bg { background: linear-gradient(135deg, #555555 0%, #000000 100%); }
-        .google-bg { background: linear-gradient(135deg, #4285F4 0%, #34A853 100%); }
-        .visa-bg { background: linear-gradient(135deg, #1A1F71 0%, #F7B600 100%); }
-        .steam-bg { background: linear-gradient(135deg, #1b2838 0%, #2a475e 100%); }
-        .netflix-bg { background: linear-gradient(135deg, #E50914 0%, #B20710 100%); }
-
-        .card-content {
-            padding: 25px;
-        }
-
-        .card-brand {
+        .offer-content { padding: 25px; }
+        .offer-category {
             font-size: 11px;
             color: var(--accent);
             font-weight: 700;
@@ -661,86 +291,32 @@
             letter-spacing: 1.5px;
             margin-bottom: 8px;
         }
-
-        .card-title {
+        .offer-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 20px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
-
-        .card-description {
-            font-size: 13px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .card-value {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-
-        .card-value .original {
+        .offer-description {
             font-size: 14px;
             color: var(--text-secondary);
-            text-decoration: line-through;
+            margin-bottom: 20px;
+            min-height: 65px;
         }
-
-        .card-value .current {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--accent);
-        }
-
-        .card-value .save {
-            background: rgba(0, 212, 170, 0.15);
-            color: var(--accent);
-            font-size: 11px;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 5px;
-        }
-
-        .card-meta {
+        .offer-meta {
             display: flex;
-            align-items: center;
             gap: 15px;
             margin-bottom: 20px;
             font-size: 12px;
             color: var(--text-secondary);
         }
-
-        .card-meta span {
+        .offer-meta span {
             display: flex;
             align-items: center;
             gap: 5px;
         }
-
-        .card-meta i {
-            color: var(--primary);
-        }
-
-        .card-rating {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 20px;
-        }
-
-        .card-rating .stars {
-            color: var(--gold);
-            font-size: 13px;
-        }
-
-        .card-rating .count {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .claim-btn {
+        .offer-meta i { color: var(--primary); }
+        .participate-btn {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -756,57 +332,10 @@
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
         }
-
-        .claim-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .claim-btn:hover::before {
-            left: 100%;
-        }
-
-        .claim-btn:hover {
+        .participate-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
-        }
-
-        .card-stock {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 15px;
-            font-size: 12px;
-        }
-
-        .stock-bar {
-            flex: 1;
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            margin: 0 10px;
-            overflow: hidden;
-        }
-
-        .stock-fill {
-            height: 100%;
-            border-radius: 10px;
-            background: var(--gradient-2);
-            transition: width 1s ease;
-        }
-
-        .stock-text {
-            color: #FF6B6B;
-            font-weight: 600;
         }
 
         /* How It Works */
@@ -815,189 +344,79 @@
             max-width: 1000px;
             margin: 0 auto;
         }
-
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
-            position: relative;
         }
-
-        .steps-grid::before {
-            content: '';
-            position: absolute;
-            top: 40px;
-            left: 15%;
-            right: 15%;
-            height: 2px;
-            background: var(--gradient-1);
-            opacity: 0.3;
-            z-index: 0;
-        }
-
         .step {
             text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .step-icon {
-            width: 80px;
-            height: 80px;
             background: var(--card-bg);
-            border: 2px solid var(--card-border);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 30px 20px;
+            transition: all 0.3s;
+        }
+        .step:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-1);
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 28px;
             margin: 0 auto 20px;
-            transition: all 0.3s;
         }
-
-        .step:hover .step-icon {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.2);
-        }
-
-        .step-number {
-            position: absolute;
-            top: -8px;
-            right: calc(50% - 50px);
-            background: var(--gradient-1);
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
         .step h3 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 18px;
-            font-weight: 700;
             margin-bottom: 8px;
         }
-
         .step p {
             font-size: 13px;
             color: var(--text-secondary);
-            line-height: 1.6;
         }
 
-        /* Reviews Section */
-        .reviews-section {
+        /* About Section */
+        .about-section {
             padding: 80px 20px;
-            background: rgba(18, 18, 42, 0.5);
-        }
-
-        .reviews-container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
         }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        .review-card {
+        .about-content {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 25px;
-            transition: all 0.3s;
+            border-radius: 20px;
+            padding: 40px;
         }
-
-        .review-card:hover {
-            border-color: rgba(108, 99, 255, 0.3);
-            transform: translateY(-3px);
+        .about-content h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            margin-bottom: 20px;
         }
-
-        .review-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .about-content p {
+            color: var(--text-secondary);
             margin-bottom: 15px;
         }
 
-        .review-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: 700;
-            color: white;
-        }
-
-        .review-info h4 {
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        .review-info .review-meta {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .verified-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .review-stars {
-            color: var(--gold);
-            font-size: 13px;
-            margin-bottom: 12px;
-        }
-
-        .review-text {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 12px;
-        }
-
-        .review-date {
-            font-size: 11px;
-            color: rgba(160, 160, 192, 0.6);
-        }
-
-        /* FAQ Section */
+        /* FAQ */
         .faq-section {
             padding: 80px 20px;
             max-width: 800px;
             margin: 0 auto;
         }
-
         .faq-item {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 14px;
             margin-bottom: 12px;
             overflow: hidden;
-            transition: border-color 0.3s;
         }
-
-        .faq-item:hover {
-            border-color: rgba(108, 99, 255, 0.3);
-        }
-
         .faq-question {
             padding: 20px 25px;
             display: flex;
@@ -1006,1093 +425,296 @@
             cursor: pointer;
             font-size: 15px;
             font-weight: 600;
-            transition: color 0.3s;
         }
-
-        .faq-question:hover {
-            color: var(--primary);
-        }
-
-        .faq-question i {
-            transition: transform 0.3s;
-            color: var(--primary);
-        }
-
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-        }
-
+        .faq-question i { transition: transform 0.3s; color: var(--primary); }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
         .faq-answer {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.4s ease;
         }
-
         .faq-answer-inner {
             padding: 0 25px 20px;
             font-size: 14px;
             color: var(--text-secondary);
-            line-height: 1.7;
         }
+        .faq-item.active .faq-answer { max-height: 300px; }
 
-        .faq-item.active .faq-answer {
-            max-height: 300px;
-        }
-
-        /* Features Section */
-        .features-section {
-            padding: 80px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .feature-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .feature-card:hover {
-            border-color: rgba(108, 99, 255, 0.3);
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 36px;
-            margin-bottom: 15px;
-        }
-
-        .feature-card h3 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .feature-card p {
-            font-size: 13px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Security Section */
-        .security-section {
+        /* Contact */
+        .contact-section {
             padding: 60px 20px;
             text-align: center;
-        }
-
-        .security-badges {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .security-badge {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .security-badge i {
-            font-size: 20px;
-            color: var(--accent);
-        }
-
-        /* Newsletter */
-        .newsletter-section {
-            padding: 80px 20px;
             background: rgba(18, 18, 42, 0.5);
         }
-
-        .newsletter-container {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
+        .contact-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            margin-bottom: 15px;
         }
-
-        .newsletter-form {
-            display: flex;
-            gap: 10px;
-            margin-top: 30px;
+        .contact-section p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
         }
-
-        .newsletter-form input {
-            flex: 1;
-            padding: 14px 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            color: white;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .newsletter-form input:focus {
-            border-color: var(--primary);
-        }
-
-        .newsletter-form button {
-            padding: 14px 30px;
-            background: var(--gradient-1);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-
-        .newsletter-form button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(108, 99, 255, 0.4);
+        .contact-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
         }
 
         /* Footer */
         .footer {
             background: rgba(5, 5, 15, 0.8);
             border-top: 1px solid var(--card-border);
-            padding: 60px 20px 30px;
+            padding: 50px 20px 25px;
         }
-
         .footer-container {
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .footer-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr 1fr;
             gap: 40px;
             margin-bottom: 40px;
         }
-
-        .footer-brand .logo {
-            margin-bottom: 15px;
-        }
-
         .footer-brand p {
             font-size: 13px;
             color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 20px;
+            margin: 15px 0;
         }
-
-        .footer-social {
-            display: flex;
-            gap: 12px;
-        }
-
-        .footer-social a {
-            width: 38px;
-            height: 38px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        .footer-social a:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-3px);
-        }
-
         .footer-col h4 {
             font-size: 14px;
-            font-weight: 700;
             margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
         .footer-col ul {
             list-style: none;
         }
-
         .footer-col ul li {
             margin-bottom: 10px;
         }
-
         .footer-col ul a {
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 13px;
-            transition: color 0.3s;
         }
-
-        .footer-col ul a:hover {
-            color: var(--primary);
-        }
-
+        .footer-col ul a:hover { color: var(--primary); }
         .footer-bottom {
             border-top: 1px solid var(--card-border);
             padding-top: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
+            text-align: center;
         }
-
         .footer-bottom p {
             font-size: 12px;
             color: var(--text-secondary);
+            line-height: 1.7;
         }
-
-        .footer-bottom-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .footer-bottom-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
+        .disclaimer {
+            background: rgba(255, 193, 7, 0.05);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
             font-size: 12px;
-            transition: color 0.3s;
-        }
-
-        .footer-bottom-links a:hover {
-            color: var(--primary);
-        }
-
-        /* Cookie Consent */
-        .cookie-consent {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(18, 18, 42, 0.98);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid var(--card-border);
-            padding: 20px;
-            z-index: 10000;
-            display: none;
-            animation: slideUp 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        .cookie-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .cookie-text {
-            font-size: 13px;
             color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.7;
         }
-
-        .cookie-text a {
-            color: var(--primary);
-        }
-
-        .cookie-buttons {
-            display: flex;
-            gap: 10px;
-            flex-shrink: 0;
-        }
-
-        .cookie-btn {
-            padding: 10px 24px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s;
-        }
-
-        .cookie-accept {
-            background: var(--gradient-1);
-            color: white;
-        }
-
-        .cookie-decline {
-            background: transparent;
-            border: 1px solid var(--card-border);
-            color: var(--text-secondary);
-        }
-
-        /* Live Activity Popup */
-        .activity-popup {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 9999;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            transform: translateX(-150%);
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            max-width: 350px;
-        }
-
-        .activity-popup.show {
-            transform: translateX(0);
-        }
-
-        .activity-popup .popup-icon {
-            font-size: 30px;
-        }
-
-        .activity-popup .popup-text {
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .activity-popup .popup-text strong {
-            color: var(--accent);
-        }
-
-        .activity-popup .popup-time {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        .popup-close {
-            position: absolute;
-            top: 8px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        /* Sticky Bottom CTA (Mobile) */
-        .sticky-cta {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 26, 0.95);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid var(--card-border);
-            padding: 12px 20px;
-            z-index: 9998;
-            display: none;
-        }
-
-        .sticky-cta-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            padding: 14px;
-            background: var(--gradient-1);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        /* Modal/Popup for claiming */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
-            z-index: 10001;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            animation: modalIn 0.4s ease;
-        }
-
-        @keyframes modalIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .modal-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
-
-        .modal h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .modal p {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .modal-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 40px;
-            background: var(--gradient-1);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .modal-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
-        }
-
-        .modal-trust {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        .modal-trust span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .modal-trust i {
-            color: var(--accent);
-        }
-
-        /* Region Selector */
-        .region-bar {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 20px;
-            flex-wrap: wrap;
-        }
-
-        .region-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            color: var(--text-secondary);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .region-btn:hover, .region-btn.active {
-            border-color: var(--primary);
-            color: var(--text-primary);
-            background: rgba(108, 99, 255, 0.1);
-        }
-
-        .region-btn .flag {
-            font-size: 20px;
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        .disclaimer strong { color: #FFC107; }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(10, 10, 26, 0.98);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                padding: 20px;
-                gap: 15px;
-                border-bottom: 1px solid var(--card-border);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-toggle {
-                display: block;
-            }
-
-            .hero-stats {
-                gap: 25px;
-            }
-
-            .stat-number {
-                font-size: 24px;
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .steps-grid::before {
-                display: none;
-            }
-
-            .reviews-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .newsletter-form {
-                flex-direction: column;
-            }
-
-            .cookie-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .sticky-cta {
-                display: block;
-            }
-
-            .activity-popup {
-                left: 10px;
-                right: 10px;
-                bottom: 70px;
-                max-width: unset;
-            }
-
-            .hero {
-                padding: 50px 20px 40px;
-            }
-
-            .countdown-timer {
-                gap: 8px;
-            }
-
-            .countdown-box {
-                padding: 10px 12px;
-                min-width: 60px;
-            }
-
-            .countdown-box .number {
-                font-size: 22px;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
+            .nav-links { display: none; }
+            .mobile-toggle { display: block; }
+            .offers-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .info-stats { gap: 30px; }
+            .about-content { padding: 25px; }
         }
 
-        @media (max-width: 480px) {
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero h1 {
-                font-size: 30px;
-            }
-
-            .hero-stats {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .security-badges {
-                flex-direction: column;
-            }
-        }
-
-        /* Scroll Animations */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--dark-bg);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
-        }
-
-        /* Selection */
-        ::selection {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Particle Effect on Cards */
-        .particle-container {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            border-radius: 20px;
-            pointer-events: none;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--dark-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
     </style>
 </head>
 <body>
 
-    <!-- Galaxy Background -->
     <div class="galaxy-bg"></div>
     <div class="stars" id="stars"></div>
-    <div class="floating-orb orb-1"></div>
-    <div class="floating-orb orb-2"></div>
-    <div class="floating-orb orb-3"></div>
 
-    <!-- Content Wrapper -->
     <div class="content-wrapper">
 
-        <!-- Top Banner -->
-        <div class="top-banner">
-            <i class="fas fa-bolt"></i>
-            LIMITED TIME: Exclusive Gift Card Rewards — Claim Yours Before They're Gone!
-            <i class="fas fa-bolt"></i>
-        </div>
-
         <!-- Navigation -->
-        <nav class="navbar" id="navbar">
+        <nav class="navbar">
             <div class="nav-container">
                 <a href="#" class="logo">
-                    <div class="logo-icon">🎁</div>
-                    <div>
-                        <div class="logo-text">RewardVault</div>
-                    </div>
-                    <span class="logo-badge">OFFICIAL</span>
+                    <div class="logo-icon">◈</div>
+                    <div class="logo-text">RewardHub</div>
                 </a>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#cards">Rewards</a></li>
+                <ul class="nav-links">
+                    <li><a href="#offers">Offers</a></li>
                     <li><a href="#how">How It Works</a></li>
-                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#about">About</a></li>
                     <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#cards" class="nav-cta">Claim Now</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
-                <button class="mobile-toggle" id="mobileToggle">
+                <button class="mobile-toggle" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
         </nav>
 
-        <!-- Region Selector -->
-        <div class="region-bar">
-            <button class="region-btn active" data-region="us">
-                <span class="flag">🇺🇸</span> United States
-            </button>
-            <button class="region-btn" data-region="ca">
-                <span class="flag">🇨🇦</span> Canada
-            </button>
-            <button class="region-btn" data-region="uk">
-                <span class="flag">🇬🇧</span> United Kingdom
-            </button>
-        </div>
-
-        <!-- Hero Section -->
+        <!-- Hero -->
         <section class="hero">
             <div class="hero-badge">
-                <span class="dot"></span>
-                <span id="liveUsers">2,847</span> people claiming rewards right now
+                <i class="fas fa-sparkles"></i>
+                Consumer Research & Rewards Platform
             </div>
             <h1>
-                Claim Your <span class="highlight">Exclusive</span><br>
-                Gift Card <span class="highlight-2">Rewards</span>
+                Participate in <span class="highlight">Market Research</span> & Earn Digital Rewards
             </h1>
             <p>
-                Join over 500,000+ verified members who have already claimed their premium gift card rewards. Select your preferred brand, complete a quick verification, and receive your digital gift card instantly.
+                Join our community of consumers who share opinions through surveys and promotional offers from our advertising partners. Available for participants in the US, Canada, and United Kingdom.
             </p>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number" data-count="527849">527,849</div>
-                    <div class="stat-label">Rewards Claimed</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">4.9/5</div>
-                    <div class="stat-label">User Rating</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">$2.4M+</div>
-                    <div class="stat-label">Total Distributed</div>
-                </div>
-            </div>
-            <a href="#cards" class="hero-cta">
-                Browse Available Rewards <i class="fas fa-arrow-right"></i>
+            <a href="#offers" class="hero-cta">
+                Browse Available Offers <i class="fas fa-arrow-right"></i>
             </a>
         </section>
 
-        <!-- Trust Bar -->
-        <div class="trust-bar">
-            <div class="trust-bar-label">Trusted & Verified By</div>
-            <div class="trust-logos">
-                <div class="trust-logo">
-                    <i class="fas fa-shield-halved"></i>
-                    <span>Norton Secured</span>
+        <!-- Info Bar -->
+        <div class="info-bar">
+            <div class="info-stats">
+                <div class="info-stat">
+                    <h3>500K+</h3>
+                    <p>Active Participants</p>
                 </div>
-                <div class="trust-logo">
-                    <i class="fas fa-lock"></i>
-                    <span>SSL Encrypted</span>
+                <div class="info-stat">
+                    <h3>3 Countries</h3>
+                    <p>US · Canada · UK</p>
                 </div>
-                <div class="trust-logo">
-                    <i class="fas fa-check-circle"></i>
-                    <span>BBB Accredited</span>
+                <div class="info-stat">
+                    <h3>24/7</h3>
+                    <p>Platform Access</p>
                 </div>
-                <div class="trust-logo">
-                    <i class="fas fa-award"></i>
-                    <span>TrustPilot 4.9★</span>
-                </div>
-                <div class="trust-logo">
-                    <i class="fab fa-google"></i>
-                    <span>Google Verified</span>
+                <div class="info-stat">
+                    <h3>SSL</h3>
+                    <p>Secure Platform</p>
                 </div>
             </div>
         </div>
 
-        <!-- Countdown Timer -->
-        <section class="countdown-section">
-            <div class="countdown-wrapper">
-                <div class="countdown-title">⚡ Flash Reward Event Ending Soon</div>
-                <div class="countdown-subtitle">Bonus Rewards Expire In:</div>
-                <div class="countdown-timer" id="countdown">
-                    <div class="countdown-box">
-                        <div class="number" id="hours">05</div>
-                        <div class="label">Hours</div>
-                    </div>
-                    <div class="countdown-box">
-                        <div class="number" id="minutes">42</div>
-                        <div class="label">Minutes</div>
-                    </div>
-                    <div class="countdown-box">
-                        <div class="number" id="seconds">18</div>
-                        <div class="label">Seconds</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gift Cards Section -->
-        <section class="cards-section" id="cards">
-            <div class="section-header animate-on-scroll">
-                <span class="section-tag"><i class="fas fa-gift"></i> Available Rewards</span>
-                <h2>Choose Your Gift Card Reward</h2>
-                <p>Select from our premium collection of brand gift cards. Limited quantities available — claim yours today.</p>
+        <!-- Offers Section -->
+        <section class="offers-section" id="offers">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-list"></i> Available Offers</span>
+                <h2>Current Promotional Offers</h2>
+                <p>Explore promotional offers from our advertising partners. Complete offer requirements to receive rewards.</p>
             </div>
 
-            <div class="cards-grid">
+            <div class="offers-grid">
 
-                <!-- Amazon Gift Card -->
-                <div class="gift-card animate-on-scroll">
-                    <span class="card-badge">🔥 HOT</span>
-                    <div class="card-image">
-                        <div class="card-image-bg amazon-bg"></div>
-                        <div class="card-brand-icon">🛒</div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">Amazon</div>
-                        <div class="card-title">Amazon Gift Card</div>
-                        <div class="card-description">Shop millions of products on Amazon. Valid across all Amazon stores in US, CA & UK.</div>
-                        <div class="card-value">
-                            <span class="original">$500</span>
-                            <span class="current">FREE</span>
-                            <span class="save">100% OFF</span>
+                <!-- Offer 1 -->
+                <div class="offer-card">
+                    <div class="offer-image bg-1">🎯</div>
+                    <div class="offer-content">
+                        <div class="offer-category">Promotional Offer</div>
+                        <div class="offer-title">Consumer Survey Reward</div>
+                        <div class="offer-description">Share your opinion on shopping habits and receive access to exclusive partner rewards program.</div>
+                        <div class="offer-meta">
+                            <span><i class="fas fa-clock"></i> ~5 minutes</span>
+                            <span><i class="fas fa-globe"></i> US/CA/UK</span>
                         </div>
-                        <div class="card-meta">
-                            <span><i class="fas fa-users"></i> 12,483 claimed</span>
-                            <span><i class="fas fa-clock"></i> Instant delivery</span>
-                        </div>
-                        <div class="card-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="count">(4,892 reviews)</span>
-                        </div>
-                        <a href="YOUR_CPA_LINK_AMAZON" class="claim-btn" target="_blank" rel="noopener">
-                            <i class="fas fa-gift"></i> Claim $500 Amazon Card
+                        <a href="https://singingfiles.com/show.php?l=0&u=2539501&id=75113" class="participate-btn" target="_blank" rel="noopener nofollow">
+                            View Offer <i class="fas fa-external-link-alt"></i>
                         </a>
-                        <div class="card-stock">
-                            <span class="stock-text">Only 23 left!</span>
-                            <div class="stock-bar"><div class="stock-fill" style="width: 15%;"></div></div>
-                            <span style="font-size:11px; color: var(--text-secondary);">85% claimed</span>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Apple Gift Card -->
-                <div class="gift-card animate-on-scroll">
-                    <span class="card-badge card-popular">⭐ POPULAR</span>
-                    <div class="card-image">
-                        <div class="card-image-bg apple-bg"></div>
-                        <div class="card-brand-icon">🍎</div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">Apple</div>
-                        <div class="card-title">Apple Gift Card</div>
-                        <div class="card-description">Use for App Store, iTunes, Apple Music, iCloud, and more. Universal across Apple ecosystem.</div>
-                        <div class="card-value">
-                            <span class="original">$500</span>
-                            <span class="current">FREE</span>
-                            <span class="save">100% OFF</span>
+                <!-- Offer 2 -->
+                <div class="offer-card">
+                    <div class="offer-image bg-2">📱</div>
+                    <div class="offer-content">
+                        <div class="offer-category">Technology Offer</div>
+                        <div class="offer-title">Digital Product Preview</div>
+                        <div class="offer-description">Preview a new digital product and provide feedback to unlock partner reward opportunities.</div>
+                        <div class="offer-meta">
+                            <span><i class="fas fa-clock"></i> ~5 minutes</span>
+                            <span><i class="fas fa-globe"></i> US/CA/UK</span>
                         </div>
-                        <div class="card-meta">
-                            <span><i class="fas fa-users"></i> 9,274 claimed</span>
-                            <span><i class="fas fa-clock"></i> Instant delivery</span>
-                        </div>
-                        <div class="card-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="count">(3,651 reviews)</span>
-                        </div>
-                        <a href="YOUR_CPA_LINK_APPLE" class="claim-btn" target="_blank" rel="noopener">
-                            <i class="fas fa-gift"></i> Claim $500 Apple Card
+                        <a href="https://singingfiles.com/show.php?l=0&u=2539501&id=75115" class="participate-btn" target="_blank" rel="noopener nofollow">
+                            View Offer <i class="fas fa-external-link-alt"></i>
                         </a>
-                        <div class="card-stock">
-                            <span class="stock-text">Only 18 left!</span>
-                            <div class="stock-bar"><div class="stock-fill" style="width: 12%;"></div></div>
-                            <span style="font-size:11px; color: var(--text-secondary);">88% claimed</span>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Google Play Gift Card -->
-                <div class="gift-card animate-on-scroll">
-                    <span class="card-badge">🆕 NEW</span>
-                    <div class="card-image">
-                        <div class="card-image-bg google-bg"></div>
-                        <div class="card-brand-icon">▶️</div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">Google</div>
-                        <div class="card-title">Google Play Gift Card</div>
-                        <div class="card-description">Purchase apps, games, movies, books, and subscriptions on Google Play Store.</div>
-                        <div class="card-value">
-                            <span class="original">$250</span>
-                            <span class="current">FREE</span>
-                            <span class="save">100% OFF</span>
+                <!-- Offer 3 -->
+                <div class="offer-card">
+                    <div class="offer-image bg-3">💼</div>
+                    <div class="offer-content">
+                        <div class="offer-category">Lifestyle Offer</div>
+                        <div class="offer-title">Lifestyle Research Program</div>
+                        <div class="offer-description">Take part in lifestyle research and connect with promotional offers from our trusted partners.</div>
+                        <div class="offer-meta">
+                            <span><i class="fas fa-clock"></i> ~5 minutes</span>
+                            <span><i class="fas fa-globe"></i> US/CA/UK</span>
                         </div>
-                        <div class="card-meta">
-                            <span><i class="fas fa-users"></i> 7,891 claimed</span>
-                            <span><i class="fas fa-clock"></i> Instant delivery</span>
-                        </div>
-                        <div class="card-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="count">(2,934 reviews)</span>
-                        </div>
-                        <a href="YOUR_CPA_LINK_GOOGLE" class="claim-btn" target="_blank" rel="noopener">
-                            <i class="fas fa-gift"></i> Claim $250 Google Card
+                        <a href="https://singingfiles.com/show.php?l=0&u=2539501&id=74764" class="participate-btn" target="_blank" rel="noopener nofollow">
+                            View Offer <i class="fas fa-external-link-alt"></i>
                         </a>
-                        <div class="card-stock">
-                            <span class="stock-text">Only 31 left!</span>
-                            <div class="stock-bar"><div class="stock-fill" style="width: 20%;"></div></div>
-                            <span style="font-size:11px; color: var(--text-secondary);">80% claimed</span>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Visa Gift Card -->
-                <div class="gift-card animate-on-scroll">
-                    <span class="card-badge">💳 PREMIUM</span>
-                    <div class="card-image">
-                        <div class="card-image-bg visa-bg"></div>
-                        <div class="card-brand-icon">💳</div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">Visa</div>
-                        <div class="card-title">Visa Prepaid Gift Card</div>
-                        <div class="card-description">Use anywhere Visa is accepted worldwide. Shop online and in-store with no restrictions.</div>
-                        <div class="card-value">
-                            <span class="original">$750</span>
-                            <span class="current">FREE</span>
-                            <span class="save">100% OFF</span>
+                <!-- Offer 4 -->
+                <div class="offer-card">
+                    <div class="offer-image bg-4">🌟</div>
+                    <div class="offer-content">
+                        <div class="offer-category">Featured Offer</div>
+                        <div class="offer-title">Premium Partner Program</div>
+                        <div class="offer-description">Join our premium partner program with exclusive access to promotional rewards and offers.</div>
+                        <div class="offer-meta">
+                            <span><i class="fas fa-clock"></i> ~5 minutes</span>
+                            <span><i class="fas fa-globe"></i> US/CA/UK</span>
                         </div>
-                        <div class="card-meta">
-                            <span><i class="fas fa-users"></i> 15,672 claimed</span>
-                            <span><i class="fas fa-clock"></i> Instant delivery</span>
-                        </div>
-                        <div class="card-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="count">(5,218 reviews)</span>
-                        </div>
-                        <a href="YOUR_CPA_LINK_VISA" class="claim-btn" target="_blank" rel="noopener">
-                            <i class="fas fa-gift"></i> Claim $750 Visa Card
+                        <a href="https://singingfiles.com/show.php?l=0&u=2539501&id=74437" class="participate-btn" target="_blank" rel="noopener nofollow">
+                            View Offer <i class="fas fa-external-link-alt"></i>
                         </a>
-                        <div class="card-stock">
-                            <span class="stock-text">Only 9 left!</span>
-                            <div class="stock-bar"><div class="stock-fill" style="width: 6%;"></div></div>
-                            <span style="font-size:11px; color: var(--text-secondary);">94% claimed</span>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Steam Gift Card -->
-                <div class="gift-card animate-on-scroll">
-                    <span class="card-badge">🎮 GAMING</span>
-                    <div class="card-image">
-                        <div class="card-image-bg steam-bg"></div>
-                        <div class="card-brand-icon">🎮</div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">Steam</div>
-                        <div class="card-title">Steam Wallet Gift Card</div>
-                        <div class="card-description">Add funds to your Steam wallet. Purchase games, DLC, software, and in-game items.</div>
-                        <div class="card-value">
-                            <span class="original">$200</span>
-                            <span class="current">FREE</span>
-                            <span class="save">100% OFF</span>
+                <!-- Offer 5 -->
+                <div class="offer-card">
+                    <div class="offer-image bg-5">🎁</div>
+                    <div class="offer-content">
+                        <div class="offer-category">Special Promotion</div>
+                        <div class="offer-title">Exclusive Member Reward</div>
+                        <div class="offer-description">Access exclusive member promotions with our partner network. Limited availability offer.</div>
+                        <div class="offer-meta">
+                            <span><i class="fas fa-clock"></i> ~5 minutes</span>
+                            <span><i class="fas fa-globe"></i> US/CA/UK</span>
                         </div>
-                        <div class="card-meta">
-                            <span><i class="fas fa-users"></i> 6,543 claimed</span>
-                            <span><i class="fas fa-clock"></i> Instant delivery</span>
-                        </div>
-                        <div class="card-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="count">(2,187 reviews)</span>
-                        </div>
-                        <a href="YOUR_CPA_LINK_STEAM" class="claim-btn" target="_blank" rel="noopener">
-                            <i class="fas fa-gift"></i> Claim $200 Steam Card
+                        <a href="https://singingfiles.com/show.php?l=0&u=2539501&id=75104" class="participate-btn" target="_blank" rel="noopener nofollow">
+                            View Offer <i class="fas fa-external-link-alt"></i>
                         </a>
-                        <div class="card-stock">
-                            <span class="stock-text">Only 27 left!</span>
-                            <div class="stock-bar"><div class="stock-fill" style="width: 18%;"></div></div>
-                            <span style="font-size:11px; color: var(--text-secondary);">82% claimed</span>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Netflix Gift Card -->
-                <div class="gift-card animate-on-scroll">
-                    <span class="card-badge">📺 TRENDING</span>
-                    <div class="card-image">
-                        <div class="card-image-bg netflix-bg"></div>
-                        <div class="card-brand-icon">📺</div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">Netflix</div>
-                        <div class="card-title">Netflix Gift Card</div>
-                        <div class="card-description">Stream thousands of movies, TV shows, and documentaries. Apply to any Netflix plan.</div>
-                        <div class="card-value">
-                            <span class="original">$100</span>
-                            <span class="current">FREE</span>
-                            <span class="save">100% OFF</span>
+                <!-- Offer 6 -->
+                <div class="offer-card">
+                    <div class="offer-image bg-6">✨</div>
+                    <div class="offer-content">
+                        <div class="offer-category">Bonus Offer</div>
+                        <div class="offer-title">Community Bonus Program</div>
+                        <div class="offer-description">Participate in our community bonus program and earn rewards from featured advertising partners.</div>
+                        <div class="offer-meta">
+                            <span><i class="fas fa-clock"></i> ~5 minutes</span>
+                            <span><i class="fas fa-globe"></i> US/CA/UK</span>
                         </div>
-                        <div class="card-meta">
-                            <span><i class="fas fa-users"></i> 11,234 claimed</span>
-                            <span><i class="fas fa-clock"></i> Instant delivery</span>
-                        </div>
-                        <div class="card-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="count">(4,102 reviews)</span>
-                        </div>
-                        <a href="YOUR_CPA_LINK_NETFLIX" class="claim-btn" target="_blank" rel="noopener">
-                            <i class="fas fa-gift"></i> Claim $100 Netflix Card
+                        <a href="https://singingfiles.com/show.php?l=0&u=2539501&id=72846" class="participate-btn" target="_blank" rel="noopener nofollow">
+                            View Offer <i class="fas fa-external-link-alt"></i>
                         </a>
-                        <div class="card-stock">
-                            <span class="stock-text">Only 14 left!</span>
-                            <div class="stock-bar"><div class="stock-fill" style="width: 9%;"></div></div>
-                            <span style="font-size:11px; color: var(--text-secondary);">91% claimed</span>
-                        </div>
                     </div>
                 </div>
 
@@ -2101,302 +723,119 @@
 
         <!-- How It Works -->
         <section class="how-section" id="how">
-            <div class="section-header animate-on-scroll">
-                <span class="section-tag"><i class="fas fa-lightbulb"></i> Simple Process</span>
-                <h2>How It Works</h2>
-                <p>Get your free gift card reward in three easy steps</p>
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-info-circle"></i> Process</span>
+                <h2>How Our Platform Works</h2>
+                <p>Simple steps to participate in our reward program</p>
             </div>
             <div class="steps-grid">
-                <div class="step animate-on-scroll">
-                    <div class="step-icon">🎯</div>
-                    <span class="step-number">1</span>
-                    <h3>Choose Your Card</h3>
-                    <p>Browse our selection of premium gift cards and select your preferred brand and value.</p>
+                <div class="step">
+                    <div class="step-icon">1</div>
+                    <h3>Choose an Offer</h3>
+                    <p>Browse promotional offers from our advertising partners and select one that interests you.</p>
                 </div>
-                <div class="step animate-on-scroll">
-                    <div class="step-icon">✅</div>
-                    <span class="step-number">2</span>
-                    <h3>Quick Verification</h3>
-                    <p>Complete a simple verification to confirm you're a real person. Takes less than 2 minutes.</p>
+                <div class="step">
+                    <div class="step-icon">2</div>
+                    <h3>Complete Requirements</h3>
+                    <p>Follow the instructions provided by our partner to complete the offer requirements.</p>
                 </div>
-                <div class="step animate-on-scroll">
-                    <div class="step-icon">🎉</div>
-                    <span class="step-number">3</span>
-                    <h3>Receive Your Card</h3>
-                    <p>Your digital gift card code is delivered instantly to your email. Start using it right away!</p>
+                <div class="step">
+                    <div class="step-icon">3</div>
+                    <h3>Receive Rewards</h3>
+                    <p>Once verified by our partner, receive your promotional rewards as described in the offer terms.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Features -->
-        <section class="features-section">
-            <div class="section-header animate-on-scroll">
-                <span class="section-tag"><i class="fas fa-star"></i> Why Choose Us</span>
-                <h2>Built for Trust & Speed</h2>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Instant Delivery</h3>
-                    <p>Receive your gift card code within seconds via email. No waiting period.</p>
-                </div>
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Secure & Encrypted</h3>
-                    <p>256-bit SSL encryption protects all your data. Your privacy is our priority.</p>
-                </div>
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">💯</div>
-                    <h3>100% Legitimate</h3>
-                    <p>All gift cards are genuine and sourced directly from authorized distributors.</p>
-                </div>
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">🌍</div>
-                    <h3>US, CA & UK</h3>
-                    <p>Available for residents of United States, Canada, and United Kingdom.</p>
-                </div>
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">📱</div>
-                    <h3>Mobile Friendly</h3>
-                    <p>Claim your rewards from any device — phone, tablet, or computer.</p>
-                </div>
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">🎧</div>
-                    <h3>24/7 Support</h3>
-                    <p>Our dedicated support team is always ready to help with any questions.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Reviews Section -->
-        <section class="reviews-section" id="reviews">
-            <div class="reviews-container">
-                <div class="section-header animate-on-scroll">
-                    <span class="section-tag"><i class="fas fa-star"></i> Testimonials</span>
-                    <h2>What Our Members Say</h2>
-                    <p>Join thousands of satisfied members who have already claimed their rewards</p>
-                </div>
-                <div class="reviews-grid">
-                    <div class="review-card animate-on-scroll">
-                        <div class="review-header">
-                            <div class="review-avatar" style="background: linear-gradient(135deg, #FF6B6B, #FFD700);">J</div>
-                            <div class="review-info">
-                                <h4>Jessica M.</h4>
-                                <div class="review-meta">
-                                    <span>🇺🇸 New York, US</span>
-                                    <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"I was honestly skeptical at first, but I received my $500 Amazon gift card within minutes! The process was super easy. Already used it to buy a new Kindle. Absolutely legit — thank you RewardVault!"</p>
-                        <div class="review-date">Claimed: Amazon $500 Gift Card • 2 days ago</div>
-                    </div>
-
-                    <div class="review-card animate-on-scroll">
-                        <div class="review-header">
-                            <div class="review-avatar" style="background: linear-gradient(135deg, #6C63FF, #00D4AA);">M</div>
-                            <div class="review-info">
-                                <h4>Michael T.</h4>
-                                <div class="review-meta">
-                                    <span>🇨🇦 Toronto, CA</span>
-                                    <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"Got my Visa prepaid card yesterday and it works perfectly! Used it for online shopping right away. The verification took about a minute. Best rewards site I've ever used. Highly recommend to everyone!"</p>
-                        <div class="review-date">Claimed: Visa $750 Prepaid Card • 1 day ago</div>
-                    </div>
-
-                    <div class="review-card animate-on-scroll">
-                        <div class="review-header">
-                            <div class="review-avatar" style="background: linear-gradient(135deg, #00D4AA, #00B4D8);">S</div>
-                            <div class="review-info">
-                                <h4>Sarah L.</h4>
-                                <div class="review-meta">
-                                    <span>🇬🇧 London, UK</span>
-                                    <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"My friend recommended this site and I'm so glad she did! Got my Apple gift card code instantly after completing the verification. Used it for an Apple Music subscription and some apps. This is genuinely real!"</p>
-                        <div class="review-date">Claimed: Apple $500 Gift Card • 5 hours ago</div>
-                    </div>
-
-                    <div class="review-card animate-on-scroll">
-                        <div class="review-header">
-                            <div class="review-avatar" style="background: linear-gradient(135deg, #FFD700, #FF6B6B);">D</div>
-                            <div class="review-info">
-                                <h4>David R.</h4>
-                                <div class="review-meta">
-                                    <span>🇺🇸 Los Angeles, US</span>
-                                    <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"As a gamer, the Steam gift card was exactly what I needed! Bought 3 games during the sale. The entire process from start to finish took less than 5 minutes. Will definitely come back for more rewards."</p>
-                        <div class="review-date">Claimed: Steam $200 Gift Card • 3 days ago</div>
-                    </div>
-
-                    <div class="review-card animate-on-scroll">
-                        <div class="review-header">
-                            <div class="review-avatar" style="background: linear-gradient(135deg, #E50914, #FF6B6B);">E</div>
-                            <div class="review-info">
-                                <h4>Emma W.</h4>
-                                <div class="review-meta">
-                                    <span>🇨🇦 Vancouver, CA</span>
-                                    <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"I've been using Netflix gift cards from RewardVault for the past 3 months now and they always deliver. Currently on my 4th claim! The support team is also very responsive whenever I have questions."</p>
-                        <div class="review-date">Claimed: Netflix $100 Gift Card • 12 hours ago</div>
-                    </div>
-
-                    <div class="review-card animate-on-scroll">
-                        <div class="review-header">
-                            <div class="review-avatar" style="background: linear-gradient(135deg, #4285F4, #34A853);">R</div>
-                            <div class="review-info">
-                                <h4>Robert K.</h4>
-                                <div class="review-meta">
-                                    <span>🇬🇧 Manchester, UK</span>
-                                    <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"Brilliant service! Got my Google Play gift card code delivered to my inbox straight away. Used it to purchase apps and premium subscriptions. The whole experience was smooth and professional. Top notch!"</p>
-                        <div class="review-date">Claimed: Google Play $250 Gift Card • 1 day ago</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Security Badges -->
-        <section class="security-section animate-on-scroll">
+        <!-- About Section -->
+        <section class="about-section" id="about">
             <div class="section-header">
-                <h2>Your Security Matters</h2>
-                <p>We take your privacy and security seriously</p>
+                <span class="section-tag"><i class="fas fa-building"></i> About Us</span>
+                <h2>About RewardHub</h2>
             </div>
-            <div class="security-badges">
-                <div class="security-badge">
-                    <i class="fas fa-shield-halved"></i>
-                    <span>Norton Secured</span>
-                </div>
-                <div class="security-badge">
-                    <i class="fas fa-lock"></i>
-                    <span>256-bit SSL</span>
-                </div>
-                <div class="security-badge">
-                    <i class="fas fa-user-shield"></i>
-                    <span>GDPR Compliant</span>
-                </div>
-                <div class="security-badge">
-                    <i class="fas fa-check-double"></i>
-                    <span>McAfee Secure</span>
-                </div>
+            <div class="about-content">
+                <h2>Our Mission</h2>
+                <p>RewardHub is an online platform that connects consumers with promotional offers and market research opportunities from advertising partners across the United States, Canada, and United Kingdom.</p>
+                <p>We work with a network of trusted advertising partners to bring you promotional opportunities. Our platform serves as a directory, and all offers are provided and fulfilled by third-party partners under their own terms and conditions.</p>
+                <p>By participating in offers listed on our platform, users engage directly with our advertising partners. All reward fulfillment, verification, and eligibility requirements are determined solely by the respective partners.</p>
             </div>
         </section>
 
-        <!-- FAQ Section -->
+        <!-- FAQ -->
         <section class="faq-section" id="faq">
-            <div class="section-header animate-on-scroll">
+            <div class="section-header">
                 <span class="section-tag"><i class="fas fa-question-circle"></i> FAQ</span>
                 <h2>Frequently Asked Questions</h2>
             </div>
 
-            <div class="faq-item active animate-on-scroll">
+            <div class="faq-item active">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>How can I get a free gift card?</span>
+                    <span>What is RewardHub?</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
                     <div class="faq-answer-inner">
-                        Simply choose your preferred gift card from our selection, click the "Claim" button, and complete a quick verification process. Our reward program is sponsored by our advertising partners, which is how we're able to offer gift cards at no cost to you. Once verified, your digital gift card code will be delivered instantly to your email.
+                        RewardHub is a directory platform that lists promotional offers from various advertising partners. We connect consumers with third-party offers but do not directly fulfill or provide the rewards ourselves.
                     </div>
                 </div>
             </div>
 
-            <div class="faq-item animate-on-scroll">
+            <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Is this really free? What's the catch?</span>
+                    <span>How do the offers work?</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
                     <div class="faq-answer-inner">
-                        Yes, it's genuinely free! Our program is funded by our advertising and marketing partners. When you complete the verification process, our partners compensate us, allowing us to provide you with real gift cards at no charge. There are no hidden fees, credit card requirements, or subscriptions involved.
+                        When you click on an offer, you will be redirected to our advertising partner's website. Each partner has their own terms, requirements, and reward structure. Please read the details carefully before participating.
                     </div>
                 </div>
             </div>
 
-            <div class="faq-item animate-on-scroll">
+            <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Which countries are eligible?</span>
+                    <span>Who can participate?</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
                     <div class="faq-answer-inner">
-                        Our reward program is currently available for residents of the United States, Canada, and United Kingdom. We verify your location during the claim process to ensure eligibility. We're working on expanding to additional countries in the near future.
+                        Our platform is available for residents of the United States, Canada, and United Kingdom who are 18 years or older. Specific offers may have additional eligibility requirements set by the advertising partner.
                     </div>
                 </div>
             </div>
 
-            <div class="faq-item animate-on-scroll">
+            <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>How long does delivery take?</span>
+                    <span>Is participation free?</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
                     <div class="faq-answer-inner">
-                        Most gift card codes are delivered instantly via email after completing the verification process. In rare cases, delivery may take up to 24 hours during peak demand periods. If you haven't received your code within 24 hours, please contact our support team at support@rewardvault.com.
+                        Browsing our directory is free. However, individual offers may have their own terms and requirements. Please review each offer's terms and conditions before participating.
                     </div>
                 </div>
             </div>
 
-            <div class="faq-item animate-on-scroll">
+            <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Is my personal information safe?</span>
+                    <span>How is my data protected?</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
                     <div class="faq-answer-inner">
-                        Absolutely. We use industry-standard 256-bit SSL encryption to protect all data transmissions. We are GDPR compliant and never sell or share your personal information with third parties. Your privacy and security are our top priorities. You can review our detailed Privacy Policy for more information.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item animate-on-scroll">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Can I claim more than one gift card?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-inner">
-                        Yes! You can claim one gift card per brand per reward cycle. New reward cycles begin every 30 days, giving you the opportunity to claim additional cards. Many of our members regularly claim multiple different gift cards each month.
+                        Our website uses SSL encryption. When you click on partner offers, you will interact with third-party sites that have their own privacy policies. We recommend reviewing partner privacy policies before providing any information.
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Newsletter -->
-        <section class="newsletter-section">
-            <div class="newsletter-container animate-on-scroll">
-                <div class="section-header">
-                    <span class="section-tag"><i class="fas fa-envelope"></i> Stay Updated</span>
-                    <h2>Get Notified of New Rewards</h2>
-                    <p>Subscribe to receive exclusive reward alerts and bonus offers before anyone else.</p>
-                </div>
-                <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
-                    <input type="email" placeholder="Enter your email address" required>
-                    <button type="submit">
-                        <i class="fas fa-paper-plane"></i> Subscribe
-                    </button>
-                </form>
-            </div>
+        <!-- Contact -->
+        <section class="contact-section" id="contact">
+            <h2>Contact Us</h2>
+            <p>Have questions about our platform? Get in touch with us.</p>
+            <a href="mailto:support@rewardhub.info" class="contact-email">
+                <i class="fas fa-envelope"></i> support@rewardhub.info
+            </a>
         </section>
 
         <!-- Footer -->
@@ -2405,117 +844,46 @@
                 <div class="footer-grid">
                     <div class="footer-brand">
                         <a href="#" class="logo">
-                            <div class="logo-icon">🎁</div>
-                            <div class="logo-text">RewardVault</div>
+                            <div class="logo-icon">◈</div>
+                            <div class="logo-text">RewardHub</div>
                         </a>
-                        <p>RewardVault™ is a premier digital rewards platform connecting consumers with exclusive gift card offers from leading global brands. Trusted by over 500,000 members worldwide.</p>
-                        <div class="footer-social">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-youtube"></i></a>
-                            <a href="#"><i class="fab fa-tiktok"></i></a>
-                        </div>
+                        <p>Directory platform connecting consumers with promotional offers from advertising partners in the US, Canada, and United Kingdom.</p>
                     </div>
                     <div class="footer-col">
-                        <h4>Rewards</h4>
+                        <h4>Platform</h4>
                         <ul>
-                            <li><a href="#">Amazon Gift Cards</a></li>
-                            <li><a href="#">Apple Gift Cards</a></li>
-                            <li><a href="#">Google Play Cards</a></li>
-                            <li><a href="#">Visa Prepaid Cards</a></li>
-                            <li><a href="#">Steam Wallet Cards</a></li>
-                            <li><a href="#">Netflix Gift Cards</a></li>
+                            <li><a href="#offers">Offers</a></li>
+                            <li><a href="#how">How It Works</a></li>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#faq">FAQ</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
-                        <h4>Company</h4>
+                        <h4>Legal</h4>
                         <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">How It Works</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="#">Press</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Affiliates</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a href="#">Help Center</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="mailto:support@rewardvault.com">support@rewardvault.com</a></li>
-                            <li><a href="#">Live Chat</a></li>
-                            <li><a href="#">Report an Issue</a></li>
-                            <li><a href="#">Status Page</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
+
+                <div class="disclaimer">
+                    <strong>⚠️ Disclaimer:</strong> RewardHub is a promotional offers directory and is not affiliated with, endorsed by, or sponsored by any of the brands mentioned in third-party offers. All offers, rewards, and promotions are provided by independent third-party advertising partners under their own terms and conditions. RewardHub does not directly provide any rewards or gift cards. Participation in offers does not guarantee reward receipt, which is subject to partner verification and eligibility. All trademarks belong to their respective owners.
+                </div>
+
                 <div class="footer-bottom">
-                    <p>© 2025 RewardVault™. All rights reserved. RewardVault is not affiliated with Amazon, Apple, Google, Visa, Steam, or Netflix. All trademarks belong to their respective owners.</p>
-                    <div class="footer-bottom-links">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
-                        <a href="#">Cookie Policy</a>
-                        <a href="#">DMCA</a>
-                    </div>
+                    <p>© 2025 RewardHub. All rights reserved. | This site uses cookies to enhance user experience.</p>
                 </div>
             </div>
         </footer>
     </div>
 
-    <!-- Cookie Consent -->
-    <div class="cookie-consent" id="cookieConsent">
-        <div class="cookie-content">
-            <div class="cookie-text">
-                🍪 We use cookies to enhance your experience and analyze site traffic. By continuing to use our site, you agree to our <a href="#">Cookie Policy</a> and <a href="#">Privacy Policy</a>.
-            </div>
-            <div class="cookie-buttons">
-                <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accept All</button>
-                <button class="cookie-btn cookie-decline" onclick="declineCookies()">Decline</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Activity Popup -->
-    <div class="activity-popup" id="activityPopup">
-        <button class="popup-close" onclick="closePopup()"><i class="fas fa-times"></i></button>
-        <div class="popup-icon" id="popupIcon">🎁</div>
-        <div>
-            <div class="popup-text" id="popupText"></div>
-            <div class="popup-time" id="popupTime"></div>
-        </div>
-    </div>
-
-    <!-- Sticky CTA Mobile -->
-    <div class="sticky-cta" id="stickyCta">
-        <a href="#cards" class="sticky-cta-btn">
-            <i class="fas fa-gift"></i> Claim Your Free Gift Card Now
-        </a>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
-            <div class="modal-icon">🎉</div>
-            <h3>You're Almost There!</h3>
-            <p>Complete a quick 60-second verification to confirm you're a real person and receive your gift card code instantly via email.</p>
-            <a href="#cards" class="modal-btn" onclick="closeModal()">
-                <i class="fas fa-check-circle"></i> Verify & Claim Now
-            </a>
-            <div class="modal-trust">
-                <span><i class="fas fa-lock"></i> SSL Secured</span>
-                <span><i class="fas fa-shield-halved"></i> No Spam</span>
-                <span><i class="fas fa-check"></i> 100% Free</span>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // ==================== STARS GENERATION ====================
+        // Stars
         const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 150; i++) {
+        for (let i = 0; i < 100; i++) {
             const star = document.createElement('div');
             star.className = 'star';
             star.style.left = Math.random() * 100 + '%';
@@ -2523,313 +891,25 @@
             star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
             star.style.setProperty('--opacity', Math.random() * 0.8 + 0.2);
             star.style.animationDelay = Math.random() * 5 + 's';
-            if (Math.random() > 0.7) {
-                star.style.width = '3px';
-                star.style.height = '3px';
-            }
             starsContainer.appendChild(star);
         }
 
-        // ==================== NAVBAR SCROLL ====================
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // ==================== MOBILE TOGGLE ====================
-        const mobileToggle = document.getElementById('mobileToggle');
-        const navLinks = document.getElementById('navLinks');
-        mobileToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            const icon = mobileToggle.querySelector('i');
-            icon.className = navLinks.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
-        });
-
-        // Close mobile nav on link click
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileToggle.querySelector('i').className = 'fas fa-bars';
-            });
-        });
-
-        // ==================== REGION SELECTOR ====================
-        document.querySelectorAll('.region-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const region = btn.dataset.region;
-                const currencyMap = { us: '$', ca: 'CA$', uk: '£' };
-                const currency = currencyMap[region];
-                
-                // Update card values based on region (visual change)
-                document.querySelectorAll('.card-value .original').forEach(el => {
-                    const val = el.textContent.replace(/[^0-9]/g, '');
-                    el.textContent = currency + val;
-                });
-            });
-        });
-
-        // ==================== COUNTDOWN TIMER ====================
-        function startCountdown() {
-            let totalSeconds = 5 * 3600 + 42 * 60 + 18;
-            
-            function updateTimer() {
-                if (totalSeconds <= 0) {
-                    totalSeconds = 6 * 3600 + Math.floor(Math.random() * 60) * 60;
-                }
-                
-                const hours = Math.floor(totalSeconds / 3600);
-                const minutes = Math.floor((totalSeconds % 3600) / 60);
-                const seconds = totalSeconds % 60;
-                
-                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-                
-                totalSeconds--;
-            }
-            
-            updateTimer();
-            setInterval(updateTimer, 1000);
-        }
-        startCountdown();
-
-        // ==================== LIVE USER COUNT ====================
-        function updateLiveUsers() {
-            const base = 2847;
-            const variation = Math.floor(Math.random() * 200) - 100;
-            const count = base + variation;
-            document.getElementById('liveUsers').textContent = count.toLocaleString();
-        }
-        setInterval(updateLiveUsers, 5000);
-
-        // ==================== FAQ TOGGLE ====================
-        function toggleFaq(element) {
-            const item = element.parentElement;
+        // FAQ
+        function toggleFaq(el) {
+            const item = el.parentElement;
             const wasActive = item.classList.contains('active');
-            
-            document.querySelectorAll('.faq-item').forEach(faq => {
-                faq.classList.remove('active');
-            });
-            
-            if (!wasActive) {
-                item.classList.add('active');
-            }
+            document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('active'));
+            if (!wasActive) item.classList.add('active');
         }
 
-        // ==================== SCROLL ANIMATIONS ====================
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
-
-        // ==================== COOKIE CONSENT ====================
-        setTimeout(() => {
-            if (!localStorage.getItem('cookieAccepted')) {
-                document.getElementById('cookieConsent').style.display = 'block';
-            }
-        }, 2000);
-
-        function acceptCookies() {
-            localStorage.setItem('cookieAccepted', 'true');
-            document.getElementById('cookieConsent').style.display = 'none';
-        }
-
-        function declineCookies() {
-            document.getElementById('cookieConsent').style.display = 'none';
-        }
-
-        // ==================== ACTIVITY POPUP ====================
-        const activities = [
-            { icon: '🛒', name: 'Jennifer K.', location: 'California, US', action: 'claimed a <strong>$500 Amazon</strong> gift card', time: '2 minutes ago' },
-            { icon: '🍎', name: 'David M.', location: 'Ontario, CA', action: 'claimed a <strong>$500 Apple</strong> gift card', time: '4 minutes ago' },
-            { icon: '💳', name: 'Sophie R.', location: 'London, UK', action: 'claimed a <strong>$750 Visa</strong> prepaid card', time: '6 minutes ago' },
-            { icon: '🎮', name: 'Tyler B.', location: 'Texas, US', action: 'claimed a <strong>$200 Steam</strong> gift card', time: '8 minutes ago' },
-            { icon: '📺', name: 'Emma L.', location: 'Vancouver, CA', action: 'claimed a <strong>$100 Netflix</strong> gift card', time: '11 minutes ago' },
-            { icon: '▶️', name: 'James P.', location: 'Manchester, UK', action: 'claimed a <strong>$250 Google Play</strong> card', time: '14 minutes ago' },
-            { icon: '🛒', name: 'Ashley W.', location: 'Florida, US', action: 'claimed a <strong>$500 Amazon</strong> gift card', time: '17 minutes ago' },
-            { icon: '🍎', name: 'Chris H.', location: 'Alberta, CA', action: 'claimed a <strong>$500 Apple</strong> gift card', time: '20 minutes ago' },
-            { icon: '💳', name: 'Olivia N.', location: 'Birmingham, UK', action: 'claimed a <strong>$750 Visa</strong> prepaid card', time: '23 minutes ago' },
-            { icon: '🎮', name: 'Ryan S.', location: 'Ohio, US', action: 'claimed a <strong>$200 Steam</strong> gift card', time: '25 minutes ago' },
-        ];
-
-        let activityIndex = 0;
-        const popup = document.getElementById('activityPopup');
-
-        function showActivity() {
-            const activity = activities[activityIndex];
-            document.getElementById('popupIcon').textContent = activity.icon;
-            document.getElementById('popupText').innerHTML = `<strong>${activity.name}</strong> from ${activity.location} just ${activity.action}`;
-            document.getElementById('popupTime').textContent = activity.time;
-            
-            popup.classList.add('show');
-            
-            setTimeout(() => {
-                popup.classList.remove('show');
-            }, 5000);
-            
-            activityIndex = (activityIndex + 1) % activities.length;
-        }
-
-        function closePopup() {
-            popup.classList.remove('show');
-        }
-
-        // Start showing activities after 5 seconds, then every 15 seconds
-        setTimeout(() => {
-            showActivity();
-            setInterval(showActivity, 15000);
-        }, 5000);
-
-        // ==================== EXIT INTENT MODAL ====================
-        let modalShown = false;
-        document.addEventListener('mouseleave', (e) => {
-            if (e.clientY < 10 && !modalShown) {
-                document.getElementById('modalOverlay').classList.add('active');
-                modalShown = true;
-            }
-        });
-
-        function closeModal() {
-            document.getElementById('modalOverlay').classList.remove('active');
-        }
-
-        // Close modal on overlay click
-        document.getElementById('modalOverlay').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) {
-                closeModal();
-            }
-        });
-
-        // ==================== NEWSLETTER ====================
-        function handleNewsletterSubmit(e) {
-            e.preventDefault();
-            const input = e.target.querySelector('input');
-            const btn = e.target.querySelector('button');
-            const originalText = btn.innerHTML;
-            
-            btn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
-            btn.style.background = 'linear-gradient(135deg, #00D4AA 0%, #00B4D8 100%)';
-            input.value = '';
-            
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.background = '';
-            }, 3000);
-        }
-
-        // ==================== CLAIM BUTTON ENHANCEMENT ====================
-        document.querySelectorAll('.claim-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                // Add ripple effect
-                const ripple = document.createElement('span');
-                ripple.style.cssText = `
-                    position: absolute;
-                    background: rgba(255,255,255,0.3);
-                    border-radius: 50%;
-                    width: 100px;
-                    height: 100px;
-                    transform: translate(-50%, -50%) scale(0);
-                    animation: ripple 0.6s ease-out;
-                    pointer-events: none;
-                `;
-                
-                const rect = this.getBoundingClientRect();
-                ripple.style.left = (e.clientX - rect.left) + 'px';
-                ripple.style.top = (e.clientY - rect.top) + 'px';
-                this.appendChild(ripple);
-                
-                setTimeout(() => ripple.remove(), 600);
-            });
-        });
-
-        // Add ripple animation
-        const rippleStyle = document.createElement('style');
-        rippleStyle.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: translate(-50%, -50%) scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(rippleStyle);
-
-        // ==================== SMOOTH SCROLL ====================
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                const t = document.querySelector(this.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth' });
             });
         });
-
-        // ==================== MOBILE STICKY CTA VISIBILITY ====================
-        const stickyCta = document.getElementById('stickyCta');
-        const cardsSection = document.getElementById('cards');
-        
-        if (window.innerWidth <= 768) {
-            window.addEventListener('scroll', () => {
-                const rect = cardsSection.getBoundingClientRect();
-                if (rect.top < 0) {
-                    stickyCta.style.opacity = '1';
-                } else {
-                    stickyCta.style.opacity = '0.9';
-                }
-            });
-        }
-
-        // ==================== DYNAMIC STOCK UPDATE ====================
-        function updateStock() {
-            document.querySelectorAll('.stock-text').forEach(el => {
-                const current = parseInt(el.textContent);
-                if (current > 3) {
-                    const newCount = current - (Math.random() > 0.7 ? 1 : 0);
-                    el.textContent = `Only ${newCount} left!`;
-                }
-            });
-        }
-        setInterval(updateStock, 30000);
-
-        // ==================== PAGE VISIBILITY ====================
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                document.title = '🎁 Don\'t Miss Out! — RewardVault™';
-            } else {
-                document.title = 'RewardVault™ | Exclusive Gift Card Rewards Center';
-            }
-        });
-
-        // ==================== PRELOADER ====================
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '1';
-        });
-
-        console.log('%c🎁 RewardVault™', 'font-size: 24px; font-weight: bold; color: #6C63FF;');
-        console.log('%cPowered by RewardVault Digital Rewards Platform', 'font-size: 12px; color: #888;');
     </script>
 </body>
 </html>

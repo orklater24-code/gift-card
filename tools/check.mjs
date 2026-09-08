@@ -156,6 +156,18 @@ for (const page of PAGES) {
 for (const page of ['index.html', 'gaming.html']) {
   ok(page + ': grid marked data-ad-feed', /id="grid" data-ad-feed/.test(fs.readFileSync(path.join(ROOT, page), 'utf8')));
 }
+/* the sponsored redirect placement must be configured and documented */
+section('assets/ads.js — sponsored direct link');
+const adsSrc = fs.readFileSync(adsPath, 'utf8');
+const cssSrc = fs.readFileSync(path.join(ROOT, 'assets/site.css'), 'utf8');
+const privSrc = fs.readFileSync(path.join(ROOT, 'privacy.html'), 'utf8');
+ok('placement url set', /directLink:[\s\S]{0,200}url:\s*'https:\/\/omg10\.com\/4\/\d+'/.test(adsSrc));
+ok('direct link format switchable', /directLink:\s*(true|false)/.test(adsSrc));
+ok('rendered as a link, not a script', /class="ad-cta"/.test(adsSrc) && /rel="noopener nofollow sponsored"/.test(adsSrc));
+ok('labelled as sponsored in the UI', /Sponsored partner offer/.test(adsSrc));
+ok('stylesheet styles the sponsored link', cssSrc.includes('.ad-cta'));
+ok('privacy documents the sponsored redirect', /sponsored button labelled as advertising/i.test(privSrc));
+
 /* the privacy policy must describe the ad reality, not the old no-ads claim */
 section('privacy.html — matches the ad reality');
 const priv = fs.readFileSync(path.join(ROOT, 'privacy.html'), 'utf8');

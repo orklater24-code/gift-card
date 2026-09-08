@@ -49,6 +49,14 @@ Paste each network snippet into the PASTE ZONES at the top of `ads.js`
 as `''` simply switches that format off, and its slot keeps a dashed
 "Advertisement" outline so the layout is still reviewable.
 
+**Sponsored direct link.** `CONFIG.directLink` holds a network redirect URL
+(currently `https://omg10.com/4/11754629` — verified to answer with a redirect to an
+advertiser, not with JavaScript, so it is used as a link rather than a script). It
+renders as a labelled sponsored button in any of its listed slots that has no banner
+code, with `target="_blank"` and `rel="noopener nofollow sponsored"`. A pasted banner
+always wins over it. If your dashboard calls this placement a Popunder, move the URL
+into `popunder` inside a `<script src="...">` tag instead.
+
 Behaviour worth knowing:
 
 - **Consent gate.** UK GDPR / PECR requires consent for ad-network cookies, so no ad

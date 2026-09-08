@@ -46,11 +46,26 @@
       'pre-footer': '',
       'sticky': ''        // 320x50 / 728x90 anchor banner
     },
+    /* --- direct / smart link -----------------------------------
+       A redirect URL from your network (verified: this one answers with a
+       302 to an advertiser, not with JavaScript). It is rendered as a
+       labelled sponsored button, never disguised as one of the offers.
+       If your dashboard calls this placement a Popunder instead, move the
+       URL into `popunder` above wrapped in a <script src="..."> tag.       */
+    directLink: {
+      url: 'https://omg10.com/4/11754629',
+      title: 'Sponsored partner offer',
+      sub: 'Opens an advertiser page in a new tab — not a Cardora offer, no reward from us.',
+      button: 'Continue ↗',
+      /* which empty slots fall back to this link when they have no banner code */
+      slots: ['hero-bottom', 'pre-footer']
+    },
     /* ====================== PASTE ZONES — end ======================= */
 
     /* Which formats are switched on. Set any to false to kill it
        without deleting the pasted code.                             */
     formats: {
+      directLink: true,   // sponsored redirect button in the slots listed above
       display: true,      // hero-bottom + pre-footer containers
       inFeed: true,       // slots injected between offer cards
       sticky: true,       // bottom anchor banner
@@ -142,15 +157,21 @@
     if (!name || el.dataset.adDone === '1') return;
     el.dataset.adDone = '1';
 
-    if (!CONFIG.enabled) { el.classList.add('ad-off'); return; }
+    if (!CONFIG.enabled) { el.classList.add('ad-off'); el.innerHTML = ''; return; }
 
     var code = CONFIG.slots[name] || '';
     var on = name === 'sticky' ? CONFIG.formats.sticky
            : name === 'in-feed' ? CONFIG.formats.inFeed
            : CONFIG.formats.display;
-    if (!on) { el.classList.add('ad-off'); return; }
+    if (!on) { el.classList.add('ad-off'); el.innerHTML = ''; return; }
 
-    if (!code) { el.classList.add('ad-empty'); return; }   /* labelled placeholder */
+    if (!code && CONFIG.formats.directLink && CONFIG.directLink.url &&
+        CONFIG.directLink.slots.indexOf(name) >= 0) {
+      el.classList.add('ad-direct');
+      inject(el, directLinkHtml(CONFIG.directLink));
+      return;
+    }
+    if (!code) { el.classList.add('ad-empty'); el.innerHTML = ''; return; }   /* labelled placeholder */
     inject(el, code);
     if (name === 'sticky') {
       document.body.classList.add('has-sticky-ad');
@@ -162,6 +183,16 @@
   function syncStickyHeight(el) {
     var h = el.offsetHeight || 0;
     document.documentElement.style.setProperty('--sticky-ad-h', h + 'px');
+  }
+
+  /* A direct link is a plain link: labelled as advertising, rel=sponsored,
+     new tab, and never styled to look like one of the partner offers. */
+  function directLinkHtml(d) {
+    return '<a class="ad-cta" href="' + d.url + '" target="_blank" rel="noopener nofollow sponsored">' +
+             '<span><span class="t">' + d.title + '</span>' +
+             '<span class="s">' + d.sub + '</span></span>' +
+             '<span class="go">' + d.button + '</span>' +
+           '</a>';
   }
 
   /* ---- in-feed injection (re-runs whenever the grid re-renders) ----
@@ -277,12 +308,15 @@
     refresh: function () {
       Array.prototype.slice.call(document.querySelectorAll('.ad-slot')).forEach(function (el) {
         delete el.dataset.adDone;
-        el.classList.remove('ad-off', 'ad-empty');
+        el.classList.remove('ad-off', 'ad-empty', 'ad-direct');
         fillSlot(el);
       });
       watchFeeds();
     },
     consent: consentState,
+    directLinkUrl: function () {
+      return (CONFIG.formats.directLink && CONFIG.directLink.url) || '';
+    },
     /* Flip a format off at runtime, e.g. CARDORA_ADS.set('popunder', false) */
     set: function (name, on) {
       if (CONFIG.formats.hasOwnProperty(name)) CONFIG.formats[name] = on;

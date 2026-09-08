@@ -279,7 +279,16 @@ try {
       d.documentElement.style.getPropertyValue('--sticky-ad-h'));
     eq('pop-under script actually executed', w.__pop, 1);
     eq('pop-under timestamp stored for capping', Object.keys(JSON.parse(w.localStorage.getItem('cardora.adcap'))).length, 1);
-    ok('unfilled slot stays a labelled placeholder', d.querySelector('[data-ad-slot="pre-footer"]').classList.contains('ad-empty'));
+    /* pre-footer has no banner code, so it falls back to the sponsored link */
+    ok('slot without banner code falls back to the sponsored link',
+      d.querySelector('[data-ad-slot="pre-footer"]').classList.contains('ad-direct')
+      && !!d.querySelector('[data-ad-slot="pre-footer"] .ad-cta'));
+    A.config.formats.directLink = false;
+    A.refresh();
+    ok('with the fallback off the slot becomes a labelled placeholder',
+      d.querySelector('[data-ad-slot="pre-footer"]').classList.contains('ad-empty'));
+    A.config.formats.directLink = true;
+    A.refresh();
 
     A.set('display', false);
     A.refresh();
@@ -333,6 +342,48 @@ try {
     sel.value = 'time'; sel.dispatchEvent(new w.Event('change', { bubbles: true }));
     await tick(60);
     eq('in-feed slots re-placed after re-render', feed(), A.config.inFeed.max);
+    noErrors(errors);
+  }
+
+  section('assets/ads.js — sponsored direct link (omg10 placement)');
+  {
+    const { w, errors } = await load('index.html');
+    const d = w.document, A = w.CARDORA_ADS;
+    const URL = A.config.directLink.url;
+    ok('placement URL configured', /^https:\/\/omg10\.com\/4\/\d+$/.test(URL), URL);
+    eq('nothing rendered before consent', d.querySelectorAll('.ad-cta').length, 0);
+
+    click(w, d.querySelector('.consent [data-c="accept"]'));
+    const ctas = [...d.querySelectorAll('a.ad-cta')];
+    eq('rendered in the configured slots', ctas.length, A.config.directLink.slots.length);
+    ok('href is the placement', ctas.every((a) => a.getAttribute('href') === URL), ctas.map((a) => a.getAttribute('href')));
+    ok('opens in a new tab', ctas.every((a) => a.target === '_blank'));
+    ok('rel = sponsored + nofollow + noopener',
+      ctas.every((a) => /sponsored/.test(a.rel) && /nofollow/.test(a.rel) && /noopener/.test(a.rel)), ctas.map((a) => a.rel));
+    ok('visibly labelled as advertising', /Sponsored/.test(ctas[0].textContent), ctas[0].textContent.trim().slice(0, 60));
+    ok('states it is not a Cardora offer', /not a Cardora offer|no reward from us/i.test(ctas[0].textContent));
+    ok('slot flagged as a direct link', d.querySelector('[data-ad-slot="hero-bottom"]').classList.contains('ad-direct'));
+
+    /* a pasted banner must win over the fallback link */
+    A.config.slots['hero-bottom'] = '<div class="fake-ad">BANNER</div>';
+    A.refresh();
+    ok('banner code overrides the direct link in that slot',
+      !!d.querySelector('[data-ad-slot="hero-bottom"] .fake-ad')
+      && !d.querySelector('[data-ad-slot="hero-bottom"] .ad-cta'));
+    eq('API exposes the url', A.directLinkUrl(), URL);
+    A.set('directLink', false);
+    A.refresh();
+    eq('format switch removes every direct link', d.querySelectorAll('.ad-cta').length, 0);
+    noErrors(errors);
+  }
+
+  section('assets/ads.js — direct link respects a reject');
+  {
+    const { w, errors } = await load('quiz.html');
+    const d = w.document;
+    click(w, d.querySelector('.consent [data-c="reject"]'));
+    eq('no sponsored link after reject', d.querySelectorAll('.ad-cta').length, 0);
+    eq('quiz still intact', d.querySelectorAll('.opt').length, 4);
     noErrors(errors);
   }
 

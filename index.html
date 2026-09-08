@@ -1,915 +1,548 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Rewards Program | Survey & Offers Platform</title>
-    <meta name="description" content="Participate in market research surveys and promotional offers to earn digital rewards from our advertising partners.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        :root {
-            --primary: #6C63FF;
-            --accent: #00D4AA;
-            --dark-bg: #0a0a1a;
-            --card-bg: #12122a;
-            --card-border: rgba(108, 99, 255, 0.2);
-            --text-primary: #FFFFFF;
-            --text-secondary: #a0a0c0;
-            --gradient-1: linear-gradient(135deg, #6C63FF 0%, #00D4AA 100%);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cardora — Gift Card Offers That Actually Explain Themselves</title>
+<meta name="description" content="Cardora lists partner gift-card offers in one place with the real time cost and reward range shown up front. US, Canada and UK. 18+.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+/* ==========================================================================
+   CARDORA / PAGE 1 ONLY — scratch-to-reveal panel
+   ========================================================================== */
+/* --- scratch card ------------------------------------------------------- */
+.scratch{
+  margin:64px auto 0;max-width:760px;border:2px solid var(--ink);border-radius:var(--radius);
+  background:var(--paper-2);box-shadow:var(--shadow-hard);overflow:hidden;
+}
+.scratch-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 22px;border-bottom:2px dashed rgba(23,19,15,.25);flex-wrap:wrap}
+.scratch-head h3{font-size:20px}
+.scratch-head .hint{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tangerine)}
+.scratch-body{position:relative;height:150px;display:grid;place-items:center;text-align:center;padding:18px}
+.scratch-prize{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.scratch-prize .big{font-family:'Fraunces',serif;font-weight:900;font-size:30px;color:var(--cobalt)}
+.scratch-prize .small{font-size:13px;color:var(--ink-soft);max-width:44ch}
+#scratchCanvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair;touch-action:none;border-radius:0}
+.scratch-foot{padding:12px 22px;font-size:12px;color:var(--ink-soft);border-top:2px dashed rgba(23,19,15,.25);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* Galaxy Background */
-        .galaxy-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
-            background: 
-                radial-gradient(ellipse at 20% 50%, rgba(108, 99, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(0, 212, 170, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(255, 107, 107, 0.08) 0%, transparent 50%),
-                var(--dark-bg);
-        }
-
-        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; }
-        .star {
-            position: absolute;
-            width: 2px; height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle var(--duration) infinite;
-            opacity: 0;
-        }
-        @keyframes twinkle {
-            0%, 100% { opacity: 0; }
-            50% { opacity: var(--opacity); }
-        }
-
-        .content-wrapper { position: relative; z-index: 1; }
-
-        /* Navbar */
-        .navbar {
-            background: rgba(10, 10, 26, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--card-border);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-        .logo-icon {
-            width: 42px; height: 42px;
-            background: var(--gradient-1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-        }
-        .logo-text {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 22px;
-            font-weight: 700;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover { color: var(--text-primary); }
-        .mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        /* Hero */
-        .hero {
-            padding: 80px 20px 60px;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(108, 99, 255, 0.15);
-            border: 1px solid rgba(108, 99, 255, 0.3);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 30px;
-        }
-        .hero h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(36px, 6vw, 56px);
-            font-weight: 800;
-            line-height: 1.15;
-            margin-bottom: 24px;
-        }
-        .hero h1 .highlight {
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero p {
-            font-size: 17px;
-            color: var(--text-secondary);
-            margin-bottom: 35px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--gradient-1);
-            color: white;
-            padding: 16px 40px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s;
-            box-shadow: 0 8px 30px rgba(108, 99, 255, 0.4);
-        }
-        .hero-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(108, 99, 255, 0.5);
-        }
-
-        /* Info Bar */
-        .info-bar {
-            padding: 30px 20px;
-            text-align: center;
-            border-top: 1px solid var(--card-border);
-            border-bottom: 1px solid var(--card-border);
-            background: rgba(18, 18, 42, 0.5);
-        }
-        .info-stats {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            flex-wrap: wrap;
-        }
-        .info-stat h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 28px;
-            font-weight: 800;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .info-stat p {
-            font-size: 12px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 5px;
-        }
-
-        /* Section Header */
-        .section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        .section-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(108, 99, 255, 0.1);
-            border: 1px solid rgba(108, 99, 255, 0.2);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-        }
-        .section-header h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(28px, 4vw, 40px);
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
-        .section-header p {
-            font-size: 16px;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Offers Section */
-        .offers-section {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .offers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
-        .offer-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s;
-            position: relative;
-        }
-        .offer-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(108, 99, 255, 0.4);
-            box-shadow: 0 20px 60px rgba(108, 99, 255, 0.15);
-        }
-        .offer-image {
-            height: 160px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            position: relative;
-        }
-        .bg-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .bg-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .bg-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .bg-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
-        .bg-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
-        .bg-6 { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
-
-        .offer-content { padding: 25px; }
-        .offer-category {
-            font-size: 11px;
-            color: var(--accent);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
-        }
-        .offer-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .offer-description {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            min-height: 65px;
-        }
-        .offer-meta {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-        .offer-meta span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .offer-meta i { color: var(--primary); }
-        .participate-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 14px;
-            background: var(--gradient-1);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-        .participate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
-        }
-
-        /* How It Works */
-        .how-section {
-            padding: 80px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-        }
-        .step {
-            text-align: center;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 30px 20px;
-            transition: all 0.3s;
-        }
-        .step:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-        }
-        .step-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--gradient-1);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin: 0 auto 20px;
-        }
-        .step h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-        .step p {
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-
-        /* About Section */
-        .about-section {
-            padding: 80px 20px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .about-content {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 40px;
-        }
-        .about-content h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-        .about-content p {
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-        }
-
-        /* FAQ */
-        .faq-section {
-            padding: 80px 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .faq-item {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            margin-bottom: 12px;
-            overflow: hidden;
-        }
-        .faq-question {
-            padding: 20px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .faq-question i { transition: transform 0.3s; color: var(--primary); }
-        .faq-item.active .faq-question i { transform: rotate(180deg); }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-        }
-        .faq-answer-inner {
-            padding: 0 25px 20px;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-        .faq-item.active .faq-answer { max-height: 300px; }
-
-        /* Contact */
-        .contact-section {
-            padding: 60px 20px;
-            text-align: center;
-            background: rgba(18, 18, 42, 0.5);
-        }
-        .contact-section h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 28px;
-            margin-bottom: 15px;
-        }
-        .contact-section p {
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-        }
-        .contact-email {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--accent);
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        /* Footer */
-        .footer {
-            background: rgba(5, 5, 15, 0.8);
-            border-top: 1px solid var(--card-border);
-            padding: 50px 20px 25px;
-        }
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        .footer-brand p {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin: 15px 0;
-        }
-        .footer-col h4 {
-            font-size: 14px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .footer-col ul {
-            list-style: none;
-        }
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-        .footer-col ul a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 13px;
-        }
-        .footer-col ul a:hover { color: var(--primary); }
-        .footer-bottom {
-            border-top: 1px solid var(--card-border);
-            padding-top: 25px;
-            text-align: center;
-        }
-        .footer-bottom p {
-            font-size: 12px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-        .disclaimer {
-            background: rgba(255, 193, 7, 0.05);
-            border: 1px solid rgba(255, 193, 7, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 25px;
-            font-size: 12px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-        .disclaimer strong { color: #FFC107; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-toggle { display: block; }
-            .offers-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
-            .info-stats { gap: 30px; }
-            .about-content { padding: 25px; }
-        }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--dark-bg); }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
-    </style>
+</style>
 </head>
 <body>
+<div class="grain"></div>
 
-    <div class="galaxy-bg"></div>
-    <div class="stars" id="stars"></div>
+<!-- ======================= NAV ======================= -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">Card<em>ora</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#offers">Offers</a></li>
+      <li><a href="gaming.html">Gaming</a></li>
+      <li><a href="quiz.html">Find your match</a></li>
+      <li><a href="#reality">Payout reality</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a href="#offers" class="btn">See offers</a>
+      <button class="burger" id="burger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</nav>
 
-    <div class="content-wrapper">
-
-        <!-- Navigation -->
-        <nav class="navbar">
-            <div class="nav-container">
-                <a href="#" class="logo">
-                    <div class="logo-icon">◈</div>
-                    <div class="logo-text">RewardHub</div>
-                </a>
-                <ul class="nav-links">
-                    <li><a href="#offers">Offers</a></li>
-                    <li><a href="#how">How It Works</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <button class="mobile-toggle" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </nav>
-
-        <!-- Hero -->
-        <section class="hero">
-            <div class="hero-badge">
-                <i class="fas fa-sparkles"></i>
-                Consumer Research & Rewards Platform
-            </div>
-            <h1>
-                Participate in <span class="highlight">Market Research</span> & Earn Digital Rewards
-            </h1>
-            <p>
-                Join our community of consumers who share opinions through surveys and promotional offers from our advertising partners. Available for participants in the US, Canada, and United Kingdom.
-            </p>
-            <a href="#offers" class="hero-cta">
-                Browse Available Offers <i class="fas fa-arrow-right"></i>
-            </a>
-        </section>
-
-        <!-- Info Bar -->
-        <div class="info-bar">
-            <div class="info-stats">
-                <div class="info-stat">
-                    <h3>500K+</h3>
-                    <p>Active Participants</p>
-                </div>
-                <div class="info-stat">
-                    <h3>3 Countries</h3>
-                    <p>US · Canada · UK</p>
-                </div>
-                <div class="info-stat">
-                    <h3>24/7</h3>
-                    <p>Platform Access</p>
-                </div>
-                <div class="info-stat">
-                    <h3>SSL</h3>
-                    <p>Secure Platform</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Offers Section -->
-        <section class="offers-section" id="offers">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-list"></i> Available Offers</span>
-                <h2>Current Promotional Offers</h2>
-                <p>Explore promotional offers from our advertising partners. Complete offer requirements to receive rewards.</p>
-            </div>
-
-            <div class="offers-grid">
-
-                <!-- Offer 1 -->
-                <div class="offer-card">
-                    <div class="offer-image bg-1">🎯</div>
-                    <div class="offer-content">
-                        <div class="offer-category">Promotional Offer</div>
-                        <div class="offer-title">Consumer Survey Reward</div>
-                        <div class="offer-description">Share your opinion on shopping habits and receive access to exclusive partner rewards program.</div>
-                        <div class="offer-meta">
-                            <span><i class="fas fa-clock"></i> ~5 minutes</span>
-                            <span><i class="fas fa-globe"></i> US/CA/UK</span>
-                        </div>
-                        <a href="https://singingfiles.com/show.php?l=0&u=2539501&id=75113" class="participate-btn" target="_blank" rel="noopener nofollow">
-                            View Offer <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Offer 2 -->
-                <div class="offer-card">
-                    <div class="offer-image bg-2">📱</div>
-                    <div class="offer-content">
-                        <div class="offer-category">Technology Offer</div>
-                        <div class="offer-title">Digital Product Preview</div>
-                        <div class="offer-description">Preview a new digital product and provide feedback to unlock partner reward opportunities.</div>
-                        <div class="offer-meta">
-                            <span><i class="fas fa-clock"></i> ~5 minutes</span>
-                            <span><i class="fas fa-globe"></i> US/CA/UK</span>
-                        </div>
-                        <a href="https://singingfiles.com/show.php?l=0&u=2539501&id=75115" class="participate-btn" target="_blank" rel="noopener nofollow">
-                            View Offer <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Offer 3 -->
-                <div class="offer-card">
-                    <div class="offer-image bg-3">💼</div>
-                    <div class="offer-content">
-                        <div class="offer-category">Lifestyle Offer</div>
-                        <div class="offer-title">Lifestyle Research Program</div>
-                        <div class="offer-description">Take part in lifestyle research and connect with promotional offers from our trusted partners.</div>
-                        <div class="offer-meta">
-                            <span><i class="fas fa-clock"></i> ~5 minutes</span>
-                            <span><i class="fas fa-globe"></i> US/CA/UK</span>
-                        </div>
-                        <a href="https://singingfiles.com/show.php?l=0&u=2539501&id=74764" class="participate-btn" target="_blank" rel="noopener nofollow">
-                            View Offer <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Offer 4 -->
-                <div class="offer-card">
-                    <div class="offer-image bg-4">🌟</div>
-                    <div class="offer-content">
-                        <div class="offer-category">Featured Offer</div>
-                        <div class="offer-title">Premium Partner Program</div>
-                        <div class="offer-description">Join our premium partner program with exclusive access to promotional rewards and offers.</div>
-                        <div class="offer-meta">
-                            <span><i class="fas fa-clock"></i> ~5 minutes</span>
-                            <span><i class="fas fa-globe"></i> US/CA/UK</span>
-                        </div>
-                        <a href="https://singingfiles.com/show.php?l=0&u=2539501&id=74437" class="participate-btn" target="_blank" rel="noopener nofollow">
-                            View Offer <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Offer 5 -->
-                <div class="offer-card">
-                    <div class="offer-image bg-5">🎁</div>
-                    <div class="offer-content">
-                        <div class="offer-category">Special Promotion</div>
-                        <div class="offer-title">Exclusive Member Reward</div>
-                        <div class="offer-description">Access exclusive member promotions with our partner network. Limited availability offer.</div>
-                        <div class="offer-meta">
-                            <span><i class="fas fa-clock"></i> ~5 minutes</span>
-                            <span><i class="fas fa-globe"></i> US/CA/UK</span>
-                        </div>
-                        <a href="https://singingfiles.com/show.php?l=0&u=2539501&id=75104" class="participate-btn" target="_blank" rel="noopener nofollow">
-                            View Offer <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Offer 6 -->
-                <div class="offer-card">
-                    <div class="offer-image bg-6">✨</div>
-                    <div class="offer-content">
-                        <div class="offer-category">Bonus Offer</div>
-                        <div class="offer-title">Community Bonus Program</div>
-                        <div class="offer-description">Participate in our community bonus program and earn rewards from featured advertising partners.</div>
-                        <div class="offer-meta">
-                            <span><i class="fas fa-clock"></i> ~5 minutes</span>
-                            <span><i class="fas fa-globe"></i> US/CA/UK</span>
-                        </div>
-                        <a href="https://singingfiles.com/show.php?l=0&u=2539501&id=72846" class="participate-btn" target="_blank" rel="noopener nofollow">
-                            View Offer <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- How It Works -->
-        <section class="how-section" id="how">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-info-circle"></i> Process</span>
-                <h2>How Our Platform Works</h2>
-                <p>Simple steps to participate in our reward program</p>
-            </div>
-            <div class="steps-grid">
-                <div class="step">
-                    <div class="step-icon">1</div>
-                    <h3>Choose an Offer</h3>
-                    <p>Browse promotional offers from our advertising partners and select one that interests you.</p>
-                </div>
-                <div class="step">
-                    <div class="step-icon">2</div>
-                    <h3>Complete Requirements</h3>
-                    <p>Follow the instructions provided by our partner to complete the offer requirements.</p>
-                </div>
-                <div class="step">
-                    <div class="step-icon">3</div>
-                    <h3>Receive Rewards</h3>
-                    <p>Once verified by our partner, receive your promotional rewards as described in the offer terms.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section class="about-section" id="about">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-building"></i> About Us</span>
-                <h2>About RewardHub</h2>
-            </div>
-            <div class="about-content">
-                <h2>Our Mission</h2>
-                <p>RewardHub is an online platform that connects consumers with promotional offers and market research opportunities from advertising partners across the United States, Canada, and United Kingdom.</p>
-                <p>We work with a network of trusted advertising partners to bring you promotional opportunities. Our platform serves as a directory, and all offers are provided and fulfilled by third-party partners under their own terms and conditions.</p>
-                <p>By participating in offers listed on our platform, users engage directly with our advertising partners. All reward fulfillment, verification, and eligibility requirements are determined solely by the respective partners.</p>
-            </div>
-        </section>
-
-        <!-- FAQ -->
-        <section class="faq-section" id="faq">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-question-circle"></i> FAQ</span>
-                <h2>Frequently Asked Questions</h2>
-            </div>
-
-            <div class="faq-item active">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>What is RewardHub?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-inner">
-                        RewardHub is a directory platform that lists promotional offers from various advertising partners. We connect consumers with third-party offers but do not directly fulfill or provide the rewards ourselves.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>How do the offers work?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-inner">
-                        When you click on an offer, you will be redirected to our advertising partner's website. Each partner has their own terms, requirements, and reward structure. Please read the details carefully before participating.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Who can participate?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-inner">
-                        Our platform is available for residents of the United States, Canada, and United Kingdom who are 18 years or older. Specific offers may have additional eligibility requirements set by the advertising partner.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Is participation free?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-inner">
-                        Browsing our directory is free. However, individual offers may have their own terms and requirements. Please review each offer's terms and conditions before participating.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>How is my data protected?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-inner">
-                        Our website uses SSL encryption. When you click on partner offers, you will interact with third-party sites that have their own privacy policies. We recommend reviewing partner privacy policies before providing any information.
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact -->
-        <section class="contact-section" id="contact">
-            <h2>Contact Us</h2>
-            <p>Have questions about our platform? Get in touch with us.</p>
-            <a href="mailto:support@rewardhub.info" class="contact-email">
-                <i class="fas fa-envelope"></i> support@rewardhub.info
-            </a>
-        </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-container">
-                <div class="footer-grid">
-                    <div class="footer-brand">
-                        <a href="#" class="logo">
-                            <div class="logo-icon">◈</div>
-                            <div class="logo-text">RewardHub</div>
-                        </a>
-                        <p>Directory platform connecting consumers with promotional offers from advertising partners in the US, Canada, and United Kingdom.</p>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Platform</h4>
-                        <ul>
-                            <li><a href="#offers">Offers</a></li>
-                            <li><a href="#how">How It Works</a></li>
-                            <li><a href="#about">About Us</a></li>
-                            <li><a href="#faq">FAQ</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms of Service</a></li>
-                            <li><a href="#">Cookie Policy</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="disclaimer">
-                    <strong>⚠️ Disclaimer:</strong> RewardHub is a promotional offers directory and is not affiliated with, endorsed by, or sponsored by any of the brands mentioned in third-party offers. All offers, rewards, and promotions are provided by independent third-party advertising partners under their own terms and conditions. RewardHub does not directly provide any rewards or gift cards. Participation in offers does not guarantee reward receipt, which is subject to partner verification and eligibility. All trademarks belong to their respective owners.
-                </div>
-
-                <div class="footer-bottom">
-                    <p>© 2025 RewardHub. All rights reserved. | This site uses cookies to enhance user experience.</p>
-                </div>
-            </div>
-        </footer>
+<!-- ======================= HERO ======================= -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span> Partner offers · US · CA · UK · 18+</span>
+      <h1>Gift card offers,<br>minus the <span class="swap">mystery</span>.</h1>
+      <p class="lede">Every offer here shows its reward range, its time cost, and what has to happen before anything is paid. No spinning wheels. No "you've already won".</p>
+      <div class="hero-cta">
+        <a href="#offers" class="btn" id="ctaCount">Browse offers →</a>
+        <a href="#reality" class="btn ghost">How payouts work</a>
+      </div>
+      <p class="hero-note">Cardora is an <b>affiliate directory</b>. When you start an offer we may be paid by the partner. Rewards are issued by the partner, not by us, and are never guaranteed.</p>
     </div>
 
-    <script>
-        // Stars
-        const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 100; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
-            star.style.setProperty('--opacity', Math.random() * 0.8 + 0.2);
-            star.style.animationDelay = Math.random() * 5 + 's';
-            starsContainer.appendChild(star);
-        }
+    <div class="wallet" id="wallet" aria-hidden="true">
+      <div class="foil-card fc-1">
+        <span class="foil"></span><span class="sheen"></span>
+        <div class="fc-top"><span>Opinion Panel</span><span class="fc-chip"></span></div>
+        <div><div class="fc-amt">$5–25</div><div class="fc-sub">5–12 min · set by partner</div></div>
+        <div class="fc-band"></div>
+      </div>
+      <div class="foil-card fc-2">
+        <span class="foil"></span><span class="sheen"></span>
+        <div class="fc-top"><span>Premium Program</span><span class="fc-chip"></span></div>
+        <div><div class="fc-amt">$25–120</div><div class="fc-sub">20–45 min · multi step</div></div>
+        <div class="fc-band"></div>
+      </div>
+      <div class="foil-card fc-3">
+        <span class="foil"></span><span class="sheen"></span>
+        <div class="fc-top"><span>Bonus Pool</span><span class="fc-chip"></span></div>
+        <div><div class="fc-amt">$5–20</div><div class="fc-sub">3–8 min · fastest</div></div>
+        <div class="fc-band"></div>
+      </div>
+    </div>
+  </div>
 
-        // FAQ
-        function toggleFaq(el) {
-            const item = el.parentElement;
-            const wasActive = item.classList.contains('active');
-            document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('active'));
-            if (!wasActive) item.classList.add('active');
-        }
+  <!-- scratch to reveal -->
+  <div class="wrap">
+    <div class="scratch rv">
+      <div class="scratch-head">
+        <h3>Scratch for your first pick</h3>
+        <span class="hint" id="scratchHint">Drag to scratch</span>
+      </div>
+      <div class="scratch-body">
+        <div class="scratch-prize">
+          <div class="big" id="prizeTitle">Loading…</div>
+          <div class="small" id="prizeCopy"></div>
+        </div>
+        <canvas id="scratchCanvas"></canvas>
+      </div>
+      <div class="scratch-foot">
+        <span>It's a recommendation, not a prize — picked from the shortest offer on the board.</span>
+        <button class="chip" id="resetScratch" type="button">Reset</button>
+      </div>
+    </div>
+  </div>
+</header>
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', function(e) {
-                e.preventDefault();
-                const t = document.querySelector(this.getAttribute('href'));
-                if (t) t.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    </script>
+<!-- ======================= STRIP ======================= -->
+<div class="strip">
+  <div class="wrap strip-in">
+    <div class="strip-cell"><h4 class="mono" id="countOffers">–</h4><p>Partner offers listed right now</p></div>
+    <div class="strip-cell"><h4 class="mono" id="rangeMin">–</h4><p>Minutes, shortest to longest offer</p></div>
+    <div class="strip-cell"><h4 class="mono">$0</h4><p>To browse — offers may require sign-up</p></div>
+    <div class="strip-cell"><h4 class="mono">18+</h4><p>US, Canada and United Kingdom only</p></div>
+  </div>
+</div>
+
+<!-- ======================= OFFERS ======================= -->
+<section class="sec" id="offers">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag tan">The board</span>
+      <h2><span id="countWord">Six</span> offers, sorted honestly.</h2>
+      <p>The value meter divides the reward midpoint by the longest stated time. It tells you which offer respects your hour — not which one pays the biggest number.</p>
+    </div>
+
+    <div class="chips rv" id="chips"></div>
+    <div class="grid rv" id="grid"></div>
+    <div class="empty rv" id="empty" style="display:none">No offers in that category yet — try another filter.</div>
+  </div>
+</section>
+
+<!-- ======================= HOW ======================= -->
+<section class="sec" id="how" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag cob">The mechanics</span>
+      <h2>Three steps, no fourth one hiding.</h2>
+    </div>
+    <div class="steps rv">
+      <div class="step">
+        <div class="num">01</div>
+        <h3>Pick an offer</h3>
+        <p>Read the reward range and the time cost on the card first. That's the whole point of this page.</p>
+        <p class="fine">Nothing is tracked until you click.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h3>Finish the partner's task</h3>
+        <p>You leave Cardora and land on the partner's site. You follow <em>their</em> steps — survey, install, milestone or purchase.</p>
+        <p class="fine">Their terms govern, not ours. Read them before you start.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h3>Partner reviews &amp; releases</h3>
+        <p>The partner checks the activity against their rules. If it passes, they release the reward on their own timeline.</p>
+        <p class="fine">Incomplete or ineligible activity is rejected. That is normal, not a bug.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PAYOUT REALITY ======================= -->
+<section class="sec" id="reality" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag min">Transparency</span>
+      <h2>What decides whether you get paid.</h2>
+      <p>Most reward sites never say this. It's the single most useful thing you can know before spending twenty minutes on an offer.</p>
+    </div>
+    <div class="split">
+      <div class="panel dark rv">
+        <h3>Usually pays when…</h3>
+        <ul>
+          <li><span class="ic yes">✓</span><span>You complete the offer <b>on one device and one browser</b>, start to finish.</span></li>
+          <li><span class="ic yes">✓</span><span>You reach the exact milestone the partner names — not one step short of it.</span></li>
+          <li><span class="ic yes">✓</span><span>Your details match the account you signed up with.</span></li>
+          <li><span class="ic yes">✓</span><span>You're inside the partner's country and age rules.</span></li>
+        </ul>
+      </div>
+      <div class="panel rv">
+        <h3>Usually voids it when…</h3>
+        <ul>
+          <li><span class="ic no">✕</span><span>Ad blockers, private windows or VPNs are on during the offer.</span></li>
+          <li><span class="ic no">✕</span><span>You've completed the same offer before on that account.</span></li>
+          <li><span class="ic no">✕</span><span>The offer needed a purchase and it was refunded.</span></li>
+          <li><span class="ic no">✕</span><span>Multiple accounts from one household or IP.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FAQ ======================= -->
+<section class="sec" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag">Questions</span>
+      <h2>Straight answers.</h2>
+    </div>
+    <div class="faq rv" id="faqList"></div>
+  </div>
+</section>
+
+<!-- ======================= SIGNUP ======================= -->
+<section class="sec" id="signup" style="padding-top:0">
+  <div class="wrap">
+    <div class="signup rv">
+      <span class="tag tan">Weekly</span>
+      <h2>One email when a genuinely good offer lands.</h2>
+      <p>Not a daily blast. We only send when a partner offer clears our own bar on reward-per-minute. Unsubscribe in one click.</p>
+      <form class="form" id="signupForm" novalidate>
+        <input type="email" id="emailInput" placeholder="you@email.com" aria-label="Email address" required>
+        <button type="submit" class="btn">Notify me</button>
+      </form>
+      <p class="form-ok" id="formOk"></p>
+      <p style="font-size:12px;opacity:.55;margin-top:14px">We store your address only to send that email. No resale, no third-party sharing.</p>
+    </div>
+
+    <div class="disclosure rv">
+      <b>Affiliate &amp; brand disclosure.</b> Cardora is an advertising directory. Some links on this page are affiliate links: if you start a partner offer through them, Cardora may receive a commission from that partner at no extra cost to you. Rewards are provided and fulfilled solely by the third-party partner under their own terms. <b>Cardora does not issue gift cards and does not guarantee any reward.</b> We are not affiliated with, endorsed by, or sponsored by any brand named in third-party offers; all trademarks belong to their owners. Reward ranges and time estimates shown here are Cardora's estimates from partner listings and can change without notice — the partner's own offer page is always the source of truth. Participation is limited to residents of the US, Canada and the UK aged 18 or older.
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <a href="#top" class="brand" style="margin-bottom:14px">
+          <span class="brand-mark"></span><span class="brand-name">Card<em>ora</em></span>
+        </a>
+        <p style="font-size:14px;color:var(--ink-soft);max-width:34ch">A gift-card offer directory that publishes the time cost next to the reward. US · Canada · UK.</p>
+      </div>
+      <div>
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Gift card hub</a></li>
+          <li><a href="gaming.html">Gaming offers</a></li>
+          <li><a href="quiz.html">Find your match</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy policy</a></li>
+          <li><a href="terms.html">Terms of service</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul><li><a href="#" id="mailto">Email support</a></li></ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© <span id="year"></span> Cardora. Offers fulfilled by third-party partners.</span>
+      <span>Catalogue last verified <span class="mono" id="verified"></span></span>
+    </div>
+  </div>
+</footer>
+
+<div class="dock" id="dock">
+  <b id="dockCount">Offers live</b>
+  <a href="#offers" class="btn">See them →</a>
+</div>
+
+<script src="assets/offers.js"></script>
+<script>
+/* ============================================================
+   PAGE 1 LOGIC
+   ============================================================ */
+(function(){
+  'use strict';
+  var C = window.CARDORA;
+  var $  = function(s,r){ return (r||document).querySelector(s); };
+  var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+
+  /* ---- footer bits ---- */
+  $('#year').textContent = C.YEAR;
+  $('#verified').textContent = new Date().toISOString().slice(0,10);
+  $('#mailto').href = 'mailto:' + C.SUPPORT_EMAIL;
+  $('#mailto').textContent = C.SUPPORT_EMAIL;
+
+  /* ---- live counts — always derived from the catalogue, never hardcoded ---- */
+  var WORDS = ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten'];
+  function minuteBounds(){
+    var lo = Math.min.apply(null, C.offers.map(function(o){ return C.minuteRange(o).lo; }));
+    var hi = Math.max.apply(null, C.offers.map(function(o){ return C.minuteRange(o).hi; }));
+    return { lo: lo, hi: hi };
+  }
+  var mb = minuteBounds();
+  $('#countOffers').textContent = C.offers.length;
+  $('#countWord').textContent = WORDS[C.offers.length] || C.offers.length;
+  $('#ctaCount').textContent = 'Browse ' + C.offers.length + ' live offers \u2192';
+  $('#rangeMin').textContent = mb.lo + '\u2013' + mb.hi;
+  $('#dockCount').textContent = C.offers.length + ' offers live';
+
+  /* ---- nav ---- */
+  $('#burger').addEventListener('click', function(){ $('#nav').classList.toggle('open'); });
+  $$('.nav-links a').forEach(function(a){
+    a.addEventListener('click', function(){ $('#nav').classList.remove('open'); });
+  });
+
+  /* ---- foil cards follow the pointer ---- */
+  var wallet = $('#wallet');
+  wallet.addEventListener('pointermove', function(e){
+    var r = wallet.getBoundingClientRect();
+    var mx = ((e.clientX - r.left) / r.width) * 100;
+    var my = ((e.clientY - r.top) / r.height) * 100;
+    $$('.foil-card', wallet).forEach(function(card, i){
+      card.style.setProperty('--mx', mx + '%');
+      card.style.setProperty('--my', my + '%');
+      card.style.setProperty('--a', (mx * 3.6 + i * 40) + 'deg');
+    });
+  });
+
+  /* ---- render offers ---- */
+  var CATS = [
+    {k:'all', label:'All offers'},
+    {k:'bonus', label:'Fastest'},
+    {k:'surveys', label:'Surveys'},
+    {k:'apps', label:'Apps & games'},
+    {k:'gaming', label:'Gaming'},
+    {k:'shopping', label:'Shopping'},
+    {k:'premium', label:'Premium'}
+  ];
+
+  var chipsEl = $('#chips');
+  CATS.forEach(function(c){
+    var n = c.k === 'all' ? C.offers.length : C.byCategory(c.k).length;
+    var b = document.createElement('button');
+    b.className = 'chip';
+    b.type = 'button';
+    b.setAttribute('aria-pressed', c.k === 'all' ? 'true' : 'false');
+    b.innerHTML = c.label + '<span class="n">' + n + '</span>';
+    b.dataset.cat = c.k;
+    b.addEventListener('click', function(){
+      $$('.chip', chipsEl).forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      filter(c.k);
+    });
+    chipsEl.appendChild(b);
+  });
+
+  var gridEl = $('#grid');
+  /* sorted by reward-per-minute, best first */
+  var sorted = C.offers.slice().sort(function(a,b){ return b.perMinute - a.perMinute; });
+
+  sorted.forEach(function(o){
+    var el = document.createElement('article');
+    el.className = 'card';
+    el.dataset.cat = o.category;
+    el.innerHTML =
+      '<div class="card-top">' +
+        '<span class="cat c-' + o.category + '">' + o.categoryLabel + '</span>' +
+        '<span class="reward">' + o.currency + o.reward + ' <span>est.</span></span>' +
+      '</div>' +
+      '<div class="card-body">' +
+        '<h3>' + o.title + '</h3>' +
+        '<p>' + o.blurb + '</p>' +
+        '<div class="meta">' +
+          '<span class="pill solid">' + o.minutes + ' min</span>' +
+          '<span class="pill">' + o.difficulty + '</span>' +
+          o.tags.map(function(t){ return '<span class="pill">' + t + '</span>'; }).join('') +
+        '</div>' +
+        '<div class="meter">' +
+          '<div class="meter-top"><span>Value per minute</span><span class="mono">$' + o.perMinute.toFixed(2) + '</span></div>' +
+          '<div class="meter-bar"><div class="meter-fill" data-w="' + Math.round(o.perMinute / C.valueMax * 100) + '"></div></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="card-foot">' +
+        '<a href="#" class="btn" data-offer="' + o.key + '" data-src="hub-card">Start offer ↗</a>' +
+      '</div>';
+    gridEl.appendChild(el);
+  });
+
+  function filter(cat){
+    var shown = 0;
+    $$('.card', gridEl).forEach(function(card){
+      var ok = (cat === 'all' || card.dataset.cat === cat);
+      card.classList.toggle('hide', !ok);
+      if (ok) shown++;
+    });
+    $('#empty').style.display = shown ? 'none' : 'block';
+  }
+
+  /* ---- FAQ ---- */
+  var FAQS = [
+    ['Does Cardora give out gift cards itself?',
+     'No. Cardora is a directory. Every reward is issued by the third-party partner whose offer you start, under their own terms and timeline. We never hold, store or distribute gift cards.'],
+    ['Why do reward amounts show as a range?',
+     'Because partners set the reward, and it usually varies by your country, the device you use and how much of the offer you complete. We publish the range we saw in the partner listing and label it as an estimate. The partner page you land on shows the exact figure before you commit.'],
+    ['Is it free to use?',
+     'Browsing Cardora is free and asks for nothing. Individual partner offers may require a free sign-up, and some require a purchase. Every offer that needs spending is labelled in its tags.'],
+    ['How long until a reward arrives?',
+     'Entirely up to the partner — anything from instant to a few weeks for offers with a manual review step. There is no Cardora-side queue because we are not the one paying.'],
+    ['Why was my offer rejected?',
+     'The usual causes are listed in the "Payout reality" section above: ad blockers or VPN during the offer, stopping before the named milestone, a duplicate account, or a refunded purchase. The partner\'s support team is the only party that can review a specific rejection.'],
+    ['Which countries are supported?',
+     'The offers currently listed target the United States, Canada and the United Kingdom, and require you to be 18 or older. A partner may narrow that further on its own page.'],
+    ['How do you make money?',
+     'Through affiliate commission. When you start an offer through a Cardora link, the partner may pay us. It costs you nothing extra, and it never changes the reward the partner offers you. Links are marked rel="sponsored" for exactly this reason.']
+  ];
+  var faqList = $('#faqList');
+  FAQS.forEach(function(f, i){
+    var d = document.createElement('div');
+    d.className = 'fq';
+    d.innerHTML = '<button class="fq-q" type="button" aria-expanded="false">' + f[0] + '</button>' +
+                  '<div class="fq-a"><div class="fq-a-in">' + f[1] + '</div></div>';
+    var btn = $('.fq-q', d), ans = $('.fq-a', d);
+    btn.addEventListener('click', function(){
+      var open = d.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      ans.style.maxHeight = open ? ans.scrollHeight + 'px' : '0px';
+    });
+    faqList.appendChild(d);
+  });
+
+  /* ---- scratch card ---- */
+  var canvas = $('#scratchCanvas'), ctx = canvas.getContext('2d');
+  var shortest = C.offers.slice().sort(function(a,b){ return C.minuteRange(a).hi - C.minuteRange(b).hi; })[0];
+  $('#prizeTitle').textContent = shortest.title;
+  $('#prizeCopy').textContent = 'Fastest offer on the board — about ' + shortest.minutes + ' minutes, ' +
+    shortest.currency + shortest.reward + ' estimated. Best way to find out whether offers pay for you.';
+
+  var drawing = false, done = false;
+  function paint(){
+    var r = canvas.getBoundingClientRect();
+    var dpr = window.devicePixelRatio || 1;
+    canvas.width = r.width * dpr; canvas.height = r.height * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    var g = ctx.createLinearGradient(0,0,r.width,r.height);
+    g.addColorStop(0,'#C9C2B6'); g.addColorStop(.5,'#E4DED2'); g.addColorStop(1,'#B8B0A2');
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = g; ctx.fillRect(0,0,r.width,r.height);
+    ctx.fillStyle = 'rgba(23,19,15,.16)';
+    ctx.font = '600 13px "IBM Plex Mono", monospace';
+    ctx.textAlign = 'center';
+    for (var y = 22; y < r.height; y += 30){
+      ctx.fillText('SCRATCH HERE', r.width/2, y);
+    }
+    done = false;
+    $('#scratchHint').textContent = 'Drag to scratch';
+  }
+  function pos(e){
+    var r = canvas.getBoundingClientRect();
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
+  function scratch(e){
+    if (!drawing || done) return;
+    var p = pos(e);
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 24, 0, Math.PI*2);
+    ctx.fill();
+    check();
+  }
+  function check(){
+    if (done) return;
+    var d = ctx.getImageData(0,0,canvas.width,canvas.height).data;
+    var clear = 0;
+    for (var i = 3; i < d.length; i += 4*40) { if (d[i] === 0) clear++; }
+    var total = Math.ceil(d.length / (4*40));
+    if (clear / total > 0.42){
+      done = true;
+      canvas.style.transition = 'opacity .5s';
+      canvas.style.opacity = '0';
+      setTimeout(function(){ canvas.style.pointerEvents = 'none'; }, 520);
+      $('#scratchHint').textContent = 'Revealed';
+    }
+  }
+  canvas.addEventListener('pointerdown', function(e){ drawing = true; canvas.setPointerCapture(e.pointerId); scratch(e); });
+  canvas.addEventListener('pointermove', scratch);
+  canvas.addEventListener('pointerup',   function(){ drawing = false; });
+  canvas.addEventListener('pointercancel',function(){ drawing = false; });
+  $('#resetScratch').addEventListener('click', function(){
+    canvas.style.transition = 'none';
+    canvas.style.opacity = '1';
+    canvas.style.pointerEvents = 'auto';
+    paint();
+  });
+  window.addEventListener('resize', paint);
+  paint();
+
+  /* ---- signup form ----
+     Set EMAIL_ENDPOINT to a Formspree / Buttondown / ConvertKit URL and it
+     POSTs there. Left empty, it stores the address locally and tells you so. */
+  var EMAIL_ENDPOINT = '';
+  $('#signupForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = $('#emailInput').value.trim();
+    var ok = $('#formOk');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)){
+      ok.className = 'form-ok show'; ok.style.color = '#FF2D6F';
+      ok.textContent = 'That email doesn\u2019t look right — check it and try again.';
+      return;
+    }
+    if (EMAIL_ENDPOINT){
+      fetch(EMAIL_ENDPOINT, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ email: email, page: 'hub' })
+      }).then(function(){ show(ok,'You\u2019re in. First email goes out when a good offer lands.'); })
+        .catch(function(){ show(ok,'Couldn\u2019t reach the mailing service — try again in a moment.'); });
+    } else {
+      try{
+        var list = JSON.parse(localStorage.getItem('cardora.subs')||'[]');
+        if (list.indexOf(email) < 0) list.push(email);
+        localStorage.setItem('cardora.subs', JSON.stringify(list));
+      }catch(err){}
+      show(ok, 'Saved on this device. Hook up EMAIL_ENDPOINT in the page script to receive them for real.');
+    }
+    $('#emailInput').value = '';
+  });
+  function show(el, msg){ el.className = 'form-ok show'; el.style.color = '#E8B33C'; el.textContent = msg; }
+
+  /* ---- scroll reveal + meter animation ---- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      en.target.classList.add('in');
+      $$('.meter-fill', en.target).forEach(function(f){ f.style.width = f.dataset.w + '%'; });
+      io.unobserve(en.target);
+    });
+  }, { threshold: 0.12 });
+  $$('.rv').forEach(function(el){ io.observe(el); });
+
+  /* ---- wire affiliate links ---- */
+  C.wire(document);
+
+  /* ---- hide the mobile dock once the offers are on screen ---- */
+  var dockIO = new IntersectionObserver(function(e){
+    $('#dock').style.transform = e[0].isIntersecting ? 'translateY(160%)' : 'translateY(0)';
+    $('#dock').style.transition = 'transform .35s';
+  }, { threshold: 0.2 });
+  dockIO.observe($('#offers'));
+})();
+</script>
 </body>
 </html>

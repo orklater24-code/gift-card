@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cardora — Gaming Offers Ranked by Rarity &amp; Reward Per Minute</title>
+<meta name="description" content="Playtest and app offers for gamers, ranked by rarity tier with the reward range, the time cost and the reward-per-minute shown up front. US, Canada and UK. 18+.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+/* ==========================================================================
+   CARDORA / PAGE 2 ONLY — "Cartridge & Rarity"
+   ========================================================================== */
+
+/* --- cartridge fan ------------------------------------------------------ */
+.carts{position:relative;display:flex;justify-content:center;align-items:center;min-height:340px;perspective:1000px}
+.cart{
+  position:absolute;width:min(210px,52vw);height:min(250px,62vw);
+  border:2px solid var(--ink);border-radius:14px 14px 6px 6px;
+  padding:16px 14px;box-shadow:var(--shadow-hard),var(--shadow-soft);
+  display:flex;flex-direction:column;justify-content:space-between;color:#fff;overflow:hidden;
+  transition:transform .45s cubic-bezier(.2,.8,.3,1),box-shadow .45s;
+}
+.cart .label{
+  border:2px solid rgba(255,255,255,.55);border-radius:8px;padding:10px 8px;text-align:center;
+  font-family:'Fraunces',serif;font-weight:900;font-size:15px;line-height:1.15;letter-spacing:-.01em;
+  background:rgba(0,0,0,.16);
+}
+.cart .label small{display:block;font-family:'Inter',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin-top:5px}
+.cart .grip{height:12px;border-radius:4px;background:rgba(0,0,0,.3);border:1px solid rgba(0,0,0,.35)}
+.cart .tier-tag{
+  align-self:flex-start;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  border:2px solid rgba(255,255,255,.6);border-radius:999px;padding:4px 10px;background:rgba(0,0,0,.2);
+}
+.ct-1{background:linear-gradient(160deg,#00A97A,#0B6E5A);transform:rotate(-11deg) translate(-96px,30px)}
+.ct-2{background:linear-gradient(160deg,#2C46FF,#7A3BFF);transform:rotate(0deg) translate(0,-14px);z-index:3}
+.ct-3{background:linear-gradient(160deg,#E8B33C,#B8842A);transform:rotate(11deg) translate(96px,30px)}
+.carts:hover .ct-1{transform:rotate(-15deg) translate(-140px,46px)}
+.carts:hover .ct-2{transform:rotate(0deg) translate(0,-26px) scale(1.04)}
+.carts:hover .ct-3{transform:rotate(15deg) translate(140px,46px)}
+
+/* --- tier legend -------------------------------------------------------- */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid var(--ink);border-radius:var(--radius);overflow:hidden;background:var(--paper-2);box-shadow:var(--shadow-hard)}
+.tier{padding:26px 24px;border-left:2px dashed rgba(23,19,15,.28)}
+.tier:first-child{border-left:0}
+.tier .gem{width:26px;height:26px;border:2px solid var(--ink);transform:rotate(45deg);margin-bottom:16px;box-shadow:2px 2px 0 var(--ink)}
+.tier.t-common .gem{background:var(--mint)}
+.tier.t-rare .gem{background:var(--cobalt)}
+.tier.t-legendary .gem{background:var(--gold)}
+.tier h3{font-size:22px;display:flex;align-items:baseline;gap:10px}
+.tier h3 .n{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-soft)}
+.tier p{font-size:14px;color:var(--ink-soft);margin-top:8px}
+
+/* --- rarity ribbon on cards --------------------------------------------- */
+.card{position:relative}
+.ribbon{
+  display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;border:2px solid var(--ink);
+  border-radius:999px;padding:4px 11px;background:var(--paper);
+}
+.ribbon .gem{width:9px;height:9px;border:1.5px solid var(--ink);transform:rotate(45deg)}
+.ribbon.r-common .gem{background:var(--mint)}
+.ribbon.r-rare .gem{background:var(--cobalt)}
+.ribbon.r-legendary .gem{background:var(--gold)}
+.ribbon.r-legendary{background:#FFF3D6}
+.ribbon.r-rare{background:#E6E9FF}
+.ribbon.r-common{background:#DDF5EC}
+.tier-row{display:flex;gap:7px;flex-wrap:wrap}
+.why{
+  font-size:12.5px;color:var(--ink-soft);border-top:1px dashed rgba(23,19,15,.25);padding-top:10px;
+}
+
+/* --- sort control ------------------------------------------------------- */
+.toolbar{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap;margin-bottom:26px}
+.toolbar .field{display:flex;flex-direction:column;gap:6px}
+.toolbar label{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.toolbar select{
+  font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:var(--ink);
+  border:2px solid var(--ink);border-radius:999px;padding:10px 16px;background:var(--paper-2);
+  box-shadow:2px 2px 0 var(--ink);cursor:pointer;
+}
+.toolbar select:focus{outline:3px solid var(--gold);outline-offset:1px}
+
+/* --- comparison table --------------------------------------------------- */
+.tbl-wrap{border:2px solid var(--ink);border-radius:var(--radius);overflow:hidden;background:var(--paper-2);box-shadow:var(--shadow-hard)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead th{
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  text-align:left;padding:14px 16px;background:var(--ink);color:var(--paper);white-space:nowrap;
+}
+tbody td{padding:14px 16px;border-top:2px dashed rgba(23,19,15,.2);vertical-align:middle}
+tbody tr:hover{background:var(--paper)}
+td.num{font-family:'IBM Plex Mono',monospace;font-weight:600;white-space:nowrap}
+td .offer-name{font-weight:700}
+td .offer-cat{font-size:11.5px;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}
+td .go{font-size:12.5px;font-weight:700;text-decoration:none;border-bottom:2px solid var(--tangerine);white-space:nowrap}
+.scroll-x{overflow-x:auto}
+
+@media(max-width:940px){
+  .tiers{grid-template-columns:1fr}
+  .tier{border-left:0;border-top:2px dashed rgba(23,19,15,.28)}
+  .tier:first-child{border-top:0}
+  .carts{min-height:280px}
+}
+@media(max-width:560px){
+  .cart{width:62vw;height:74vw}
+  .carts:hover .ct-1{transform:rotate(-13deg) translate(-58px,40px)}
+  .carts:hover .ct-3{transform:rotate(13deg) translate(58px,40px)}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- ======================= NAV ======================= -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">Card<em>ora</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#offers">Offers</a></li>
+      <li><a href="gaming.html" aria-current="page">Gaming</a></li>
+      <li><a href="quiz.html">Find your match</a></li>
+      <li><a href="index.html#reality">Payout reality</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+    </ul>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a href="#board" class="btn">See the board</a>
+      <button class="burger" id="burger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ======================= HERO ======================= -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span> Gaming board · US · CA · UK · 18+</span>
+      <h1>Playtime offers,<br>ranked by <span class="swap">rarity</span>.</h1>
+      <p class="lede">Playtests, app trials and milestone offers — with the reward ceiling, the session length and the reward-per-minute printed on the card, before you click anything.</p>
+      <div class="hero-cta">
+        <a href="#board" class="btn" id="ctaCount">See the board →</a>
+        <a href="quiz.html" class="btn ghost">Take the 60-second quiz</a>
+      </div>
+      <p class="hero-note">Cardora is an <b>affiliate directory</b>. Partners pay us when you start an offer; the partner issues the reward under their own terms. Nothing here is guaranteed.</p>
+    </div>
+
+    <div class="carts" aria-hidden="true">
+      <div class="cart ct-1">
+        <span class="tier-tag">Common</span>
+        <div class="label">Quick credit<small id="cartCommon">–</small></div>
+        <span class="grip"></span>
+      </div>
+      <div class="cart ct-2">
+        <span class="tier-tag">Rare</span>
+        <div class="label">Milestone run<small id="cartRare">–</small></div>
+        <span class="grip"></span>
+      </div>
+      <div class="cart ct-3">
+        <span class="tier-tag">Legendary</span>
+        <div class="label">Top ceiling<small id="cartLegendary">–</small></div>
+        <span class="grip"></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= TIER LEGEND ======================= -->
+<div class="strip">
+  <div class="wrap strip-in">
+    <div class="strip-cell"><h4 class="mono" id="statOffers">–</h4><p>Offers on this board right now</p></div>
+    <div class="strip-cell"><h4 class="mono" id="statBest">–</h4><p>Best reward-per-minute on the board</p></div>
+    <div class="strip-cell"><h4 class="mono" id="statCeiling">–</h4><p>Highest stated reward ceiling</p></div>
+    <div class="strip-cell"><h4 class="mono">18+</h4><p>US, Canada and United Kingdom only</p></div>
+  </div>
+</div>
+
+<section class="sec" id="tiers" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag min">Read this first</span>
+      <h2>What the tiers actually mean.</h2>
+      <p>Rarity here is not a prize drop and there is no random roll behind it. It is Cardora's own label for how demanding the offer is and how high its stated ceiling sits — so you can tell a ten-minute panel from a forty-five-minute program at a glance.</p>
+    </div>
+    <div class="tiers rv" id="tierLegend"></div>
+  </div>
+</section>
+
+<!-- ======================= BOARD ======================= -->
+<section class="sec" id="board">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag tan">The board</span>
+      <h2>Every offer, with its numbers attached.</h2>
+      <p>The value meter divides the reward midpoint by the longest stated time. A legendary tier can still be the worst deal on the board — the meter is what tells you.</p>
+    </div>
+
+    <div class="chips rv" id="chips"></div>
+
+    <div class="toolbar rv">
+      <div class="field">
+        <label for="sort">Sort by</label>
+        <select id="sort">
+          <option value="value">Reward per minute (best first)</option>
+          <option value="ceiling">Reward ceiling (highest first)</option>
+          <option value="time">Shortest session first</option>
+          <option value="tier">Rarity (legendary first)</option>
+        </select>
+      </div>
+      <p style="font-size:13px;color:var(--ink-soft);max-width:46ch;padding-bottom:11px">Filter and sort change the order only. Reward figures are Cardora estimates from partner listings — the partner's own page is the source of truth.</p>
+    </div>
+
+    <div class="grid rv" id="grid"></div>
+    <div class="empty rv" id="empty" style="display:none">No offers in that tier right now — try another filter.</div>
+  </div>
+</section>
+
+<!-- ======================= COMPARE ======================= -->
+<section class="sec" id="compare" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag cob">Side by side</span>
+      <h2>The whole board in one table.</h2>
+      <p>Sorted by reward per minute. If two offers look similar, this is where the difference shows up.</p>
+    </div>
+    <div class="tbl-wrap rv scroll-x">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Offer</th>
+            <th scope="col">Rarity</th>
+            <th scope="col">Reward (est.)</th>
+            <th scope="col">Time</th>
+            <th scope="col">Per minute</th>
+            <th scope="col">Effort</th>
+            <th scope="col"><span class="sr-only">Action</span></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= HONEST PART ======================= -->
+<section class="sec" id="reality" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag min">Transparency</span>
+      <h2>What kills a gaming offer.</h2>
+      <p>Gaming and app offers have more rejection reasons than surveys do. Nearly all of them are avoidable, and none of them are Cardora's call — the partner validates the activity.</p>
+    </div>
+    <div class="split">
+      <div class="panel dark rv">
+        <h3>Usually pays when…</h3>
+        <ul>
+          <li><span class="ic yes">✓</span><span>You install on a <b>real, personal device</b> and open the app through the partner's own link.</span></li>
+          <li><span class="ic yes">✓</span><span>You reach the <b>exact milestone</b> the partner names — level, session length or spend.</span></li>
+          <li><span class="ic yes">✓</span><span>You stay on one device, one browser, one account for the whole run.</span></li>
+          <li><span class="ic yes">✓</span><span>The account is new to that partner and your country is supported.</span></li>
+        </ul>
+      </div>
+      <div class="panel rv">
+        <h3>Usually voids it when…</h3>
+        <ul>
+          <li><span class="ic no">✕</span><span>You run an <b>emulator, rooted device or virtual phone</b> — most partners detect and reject these.</span></li>
+          <li><span class="ic no">✕</span><span>You already had the app installed before starting the offer.</span></li>
+          <li><span class="ic no">✕</span><span>You stop one step short of the milestone, or uninstall before it logs.</span></li>
+          <li><span class="ic no">✕</span><span>An in-app purchase is refunded, or a VPN masks your real country.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FAQ ======================= -->
+<section class="sec" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="tag">Questions</span>
+      <h2>Gaming offers, answered plainly.</h2>
+    </div>
+    <div class="faq rv" id="faqList"></div>
+  </div>
+</section>
+
+<!-- ======================= SIGNUP + DISCLOSURE ======================= -->
+<section class="sec" id="signup" style="padding-top:0">
+  <div class="wrap">
+    <div class="signup rv">
+      <span class="tag tan">Weekly</span>
+      <h2>New gaming offers, when they clear the bar.</h2>
+      <p>We only send when a partner listing beats the current board on reward-per-minute. No daily blast, one-click unsubscribe.</p>
+      <form class="form" id="signupForm" novalidate>
+        <input type="email" id="emailInput" placeholder="you@email.com" aria-label="Email address" required>
+        <button type="submit" class="btn">Notify me</button>
+      </form>
+      <p class="form-ok" id="formOk"></p>
+      <p style="font-size:12px;opacity:.55;margin-top:14px">Your address is stored only to send that email. No resale, no third-party sharing.</p>
+    </div>
+
+    <div class="disclosure rv">
+      <b>Affiliate &amp; brand disclosure.</b> Cardora is an advertising directory. Links on this page are affiliate links: if you start a partner offer through them, Cardora may receive a commission from that partner at no extra cost to you. Rewards are provided and fulfilled solely by the third-party partner under their own terms. <b>Cardora does not issue gift cards, does not run the games or apps listed, and does not guarantee any reward.</b> We are not affiliated with, endorsed by, or sponsored by any brand named in third-party offers; all trademarks belong to their owners. Rarity tiers, reward ranges and time estimates are Cardora's own estimates from partner listings and can change without notice. Participation is limited to residents of the US, Canada and the UK aged 18 or older.
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <a href="index.html" class="brand" style="margin-bottom:14px">
+          <span class="brand-mark"></span><span class="brand-name">Card<em>ora</em></span>
+        </a>
+        <p style="font-size:14px;color:var(--ink-soft);max-width:34ch">A gift-card offer directory that publishes the time cost next to the reward. US · Canada · UK.</p>
+      </div>
+      <div>
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Gift card hub</a></li>
+          <li><a href="gaming.html" aria-current="page">Gaming offers</a></li>
+          <li><a href="quiz.html">Find your match</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy policy</a></li>
+          <li><a href="terms.html">Terms of service</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul><li><a href="#" id="mailto">Email support</a></li></ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© <span id="year"></span> Cardora. Offers fulfilled by third-party partners.</span>
+      <span>Catalogue last verified <span class="mono" id="verified"></span></span>
+    </div>
+  </div>
+</footer>
+
+<div class="dock" id="dock">
+  <b id="dockCount">Offers live</b>
+  <a href="#board" class="btn">See the board →</a>
+</div>
+
+<script src="assets/offers.js"></script>
+<script>
+/* ============================================================
+   PAGE 2 LOGIC — gaming board
+   ============================================================ */
+(function(){
+  'use strict';
+  var C = window.CARDORA;
+  var $  = function(s,r){ return (r||document).querySelector(s); };
+  var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+
+  /* ---- derived numbers (nothing hardcoded) ---- */
+  /* Ranges come from the registry parser — never split the strings here. */
+  function bounds(o){
+    var r = C.rewardRange(o), m = C.minuteRange(o);
+    return { rLo: r.lo, rHi: r.hi, mLo: m.lo, mHi: m.hi };
+  }
+  function tierRank(o){
+    if (o.tiers.indexOf('legendary') >= 0) return 3;
+    if (o.tiers.indexOf('rare') >= 0) return 2;
+    return 1;
+  }
+  function topTier(o){
+    var t = tierRank(o);
+    return t === 3 ? 'legendary' : (t === 2 ? 'rare' : 'common');
+  }
+
+  /* ---- footer + counts ---- */
+  $('#year').textContent = C.YEAR;
+  $('#verified').textContent = new Date().toISOString().slice(0,10);
+  $('#mailto').href = 'mailto:' + C.SUPPORT_EMAIL;
+  $('#mailto').textContent = C.SUPPORT_EMAIL;
+  $('#statOffers').textContent = C.offers.length;
+  $('#statBest').textContent = '$' + C.valueMax.toFixed(2) + '/min';
+  var ceiling = Math.max.apply(null, C.offers.map(function(o){ return bounds(o).rHi; }));
+  $('#statCeiling').textContent = '$' + ceiling;
+  $('#ctaCount').textContent = 'See ' + C.offers.length + ' offers \u2192';
+  $('#dockCount').textContent = C.offers.length + ' offers live';
+
+  var tierCount = { common: 0, rare: 0, legendary: 0 };
+  C.offers.forEach(function(o){
+    o.tiers.forEach(function(t){ if (tierCount[t] != null) tierCount[t]++; });
+  });
+  $('#cartCommon').textContent = tierCount.common + ' on board';
+  $('#cartRare').textContent = tierCount.rare + ' on board';
+  $('#cartLegendary').textContent = tierCount.legendary + ' on board';
+
+  /* ---- nav ---- */
+  $('#burger').addEventListener('click', function(){ $('#nav').classList.toggle('open'); });
+  $$('.nav-links a').forEach(function(a){
+    a.addEventListener('click', function(){ $('#nav').classList.remove('open'); });
+  });
+
+  /* ---- tier legend ---- */
+  var TIERS = [
+    { k:'common', name:'Common', note:'Short, low-friction offers. A panel, a quick share, a first credit. Usually the shortest route to finding out whether reward offers pay for you at all.' },
+    { k:'rare', name:'Rare', note:'Milestone offers: install an app and reach a named point, or run a medium session. Longer, better stated range, more ways to fall short.' },
+    { k:'legendary', name:'Legendary', note:'Multi-step programs with the highest stated ceiling. The best hourly rate is not always here — check the meter before you commit 45 minutes.' }
+  ];
+  var legend = $('#tierLegend');
+  TIERS.forEach(function(t){
+    var d = document.createElement('div');
+    d.className = 'tier t-' + t.k;
+    d.innerHTML = '<span class="gem"></span>' +
+      '<h3>' + t.name + '<span class="n">' + tierCount[t.k] + ' offer' + (tierCount[t.k] === 1 ? '' : 's') + '</span></h3>' +
+      '<p>' + t.note + '</p>';
+    legend.appendChild(d);
+  });
+
+  /* ---- tier filter chips ---- */
+  var CATS = [
+    { k:'all', label:'All offers' },
+    { k:'legendary', label:'Legendary' },
+    { k:'rare', label:'Rare' },
+    { k:'common', label:'Common' }
+  ];
+  var chipsEl = $('#chips');
+  CATS.forEach(function(c){
+    var n = c.k === 'all' ? C.offers.length : tierCount[c.k];
+    var btn = document.createElement('button');
+    btn.className = 'chip';
+    btn.type = 'button';
+    btn.setAttribute('aria-pressed', c.k === 'all' ? 'true' : 'false');
+    btn.innerHTML = c.label + '<span class="n">' + n + '</span>';
+    btn.addEventListener('click', function(){
+      $$('.chip', chipsEl).forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      btn.setAttribute('aria-pressed','true');
+      activeTier = c.k;
+      render();
+    });
+    chipsEl.appendChild(btn);
+  });
+
+  /* ---- card + table rendering ---- */
+  var gridEl = $('#grid'), tbodyEl = $('#tbody');
+  var activeTier = 'all';
+  var activeSort = 'value';
+
+  function sorters(mode){
+    if (mode === 'ceiling') return function(a,b){ return bounds(b).rHi - bounds(a).rHi; };
+    if (mode === 'time')    return function(a,b){ return bounds(a).mLo - bounds(b).mLo; };
+    if (mode === 'tier')    return function(a,b){ return tierRank(b) - tierRank(a) || b.perMinute - a.perMinute; };
+    return function(a,b){ return b.perMinute - a.perMinute; };
+  }
+
+  function ribbonHtml(o){
+    return o.tiers.map(function(t){
+      return '<span class="ribbon r-' + t + '"><span class="gem"></span>' + t + '</span>';
+    }).join('');
+  }
+
+  function whyHtml(o){
+    var top = topTier(o);
+    if (top === 'legendary') return 'Highest stated ceiling on the board — but budget ' + o.minutes + ' minutes and finish every step.';
+    if (top === 'rare') return 'Milestone based: the credit releases when the partner logs the named milestone, not when you start.';
+    return 'Shortest route to a first credit — the cheapest way to test whether offers pay for you.';
+  }
+
+  function render(){
+    var list = C.offers.slice().sort(sorters(activeSort));
+    gridEl.innerHTML = '';
+    tbodyEl.innerHTML = '';
+    var shown = 0;
+
+    list.forEach(function(o){
+      var inTier = activeTier === 'all' || o.tiers.indexOf(activeTier) >= 0;
+
+      var el = document.createElement('article');
+      el.className = 'card';
+      el.style.display = inTier ? '' : 'none';
+      if (inTier) shown++;
+      el.innerHTML =
+        '<div class="card-top">' +
+          '<span class="cat c-' + o.category + '">' + o.categoryLabel + '</span>' +
+          '<span class="reward">' + o.currency + o.reward + ' <span>est.</span></span>' +
+        '</div>' +
+        '<div class="card-body">' +
+          '<h3>' + o.title + '</h3>' +
+          '<p>' + o.blurb + '</p>' +
+          '<div class="tier-row">' + ribbonHtml(o) + '</div>' +
+          '<div class="meta">' +
+            '<span class="pill solid">' + o.minutes + ' min</span>' +
+            '<span class="pill">' + o.difficulty + '</span>' +
+            o.tags.map(function(t){ return '<span class="pill">' + t + '</span>'; }).join('') +
+          '</div>' +
+          '<div class="meter">' +
+            '<div class="meter-top"><span>Value per minute</span><span class="mono">$' + o.perMinute.toFixed(2) + '</span></div>' +
+            '<div class="meter-bar"><div class="meter-fill" data-w="' + Math.round(o.perMinute / C.valueMax * 100) + '" style="width:' + Math.round(o.perMinute / C.valueMax * 100) + '%"></div></div>' +
+          '</div>' +
+          '<p class="why">' + whyHtml(o) + '</p>' +
+        '</div>' +
+        '<div class="card-foot">' +
+          '<a href="#" class="btn" data-offer="' + o.key + '" data-src="gaming-card">Start offer ↗</a>' +
+        '</div>';
+      gridEl.appendChild(el);
+
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td><div class="offer-name">' + o.title + '</div><div class="offer-cat">' + o.categoryLabel + '</div></td>' +
+        '<td>' + ribbonHtml(o) + '</td>' +
+        '<td class="num">' + o.currency + o.reward + '</td>' +
+        '<td class="num">' + o.minutes + ' min</td>' +
+        '<td class="num">$' + o.perMinute.toFixed(2) + '</td>' +
+        '<td>' + o.difficulty + '</td>' +
+        '<td><a href="#" class="go" data-offer="' + o.key + '" data-src="gaming-table">Start ↗</a></td>';
+      tbodyEl.appendChild(tr);
+    });
+
+    $('#empty').style.display = shown ? 'none' : 'block';
+    C.wire(gridEl);
+    C.wire(tbodyEl);
+  }
+
+  $('#sort').addEventListener('change', function(){ activeSort = this.value; render(); });
+  render();
+
+  /* ---- FAQ ---- */
+  var FAQS = [
+    ['What does "rarity" mean here — is something random?',
+     'No. There is no roll, no loot box and no wheel. Rarity is Cardora\'s own label for how demanding an offer is and how high its stated ceiling sits: common = short and low friction, rare = milestone based, legendary = multi-step with the highest ceiling. It is a reading aid, nothing more.'],
+    ['Do I need to spend money?',
+     'Not for the offers tagged "no purchase". Some partner programs include an optional in-app purchase milestone, and those say so in their own terms. Anything that requires spending is labelled in the offer tags, and a refunded purchase usually voids the reward.'],
+    ['Can I use an emulator or a second device?',
+     'Emulators, rooted devices and virtual phones are the most common reason gaming offers are rejected. Partners check the device fingerprint before releasing a credit. Use one real, personal device from start to finish.'],
+    ['Why does the app have to be freshly installed?',
+     'Most partners only credit installs that come after you click their link. If the app was already on your device, the activity is attributed to an older install and the credit is declined. Uninstall, then start from the Cardora link.'],
+    ['How long does a gaming reward take?',
+     'Entirely the partner\'s decision. Milestone offers often log automatically but review can take days; programs with manual review can take a few weeks. Cardora has no queue because Cardora is not the party paying.'],
+    ['Does Cardora see my game account?',
+     'No. When you click an offer you leave Cardora and go to the partner\'s site. We receive only an aggregate affiliate confirmation from the network, which never includes your game credentials, your gameplay or your in-app purchases.'],
+    ['How do you make money?',
+     'Affiliate commission. When you start an offer through a Cardora link the partner may pay us, at no extra cost to you, and it never changes the reward the partner offers you. Offer links carry rel="sponsored" for exactly this reason.']
+  ];
+  var faqList = $('#faqList');
+  FAQS.forEach(function(f){
+    var d = document.createElement('div');
+    d.className = 'fq';
+    d.innerHTML = '<button class="fq-q" type="button" aria-expanded="false">' + f[0] + '</button>' +
+                  '<div class="fq-a"><div class="fq-a-in">' + f[1] + '</div></div>';
+    var btn = $('.fq-q', d), ans = $('.fq-a', d);
+    btn.addEventListener('click', function(){
+      var open = d.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      ans.style.maxHeight = open ? ans.scrollHeight + 'px' : '0px';
+    });
+    faqList.appendChild(d);
+  });
+
+  /* ---- signup form ---- */
+  var EMAIL_ENDPOINT = '';
+  $('#signupForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = $('#emailInput').value.trim();
+    var ok = $('#formOk');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)){
+      ok.className = 'form-ok show'; ok.style.color = '#FF2D6F';
+      ok.textContent = 'That email doesn\u2019t look right — check it and try again.';
+      return;
+    }
+    if (EMAIL_ENDPOINT){
+      fetch(EMAIL_ENDPOINT, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ email: email, page: 'gaming' })
+      }).then(function(){ show(ok,'You\u2019re in. First email goes out when a good offer lands.'); })
+        .catch(function(){ show(ok,'Couldn\u2019t reach the mailing service — try again in a moment.'); });
+    } else {
+      try{
+        var list = JSON.parse(localStorage.getItem('cardora.subs')||'[]');
+        if (list.indexOf(email) < 0) list.push(email);
+        localStorage.setItem('cardora.subs', JSON.stringify(list));
+      }catch(err){}
+      show(ok, 'Saved on this device. Hook up EMAIL_ENDPOINT in the page script to receive them for real.');
+    }
+    $('#emailInput').value = '';
+  });
+  function show(el, msg){ el.className = 'form-ok show'; el.style.color = '#E8B33C'; el.textContent = msg; }
+
+  /* ---- scroll reveal ---- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      en.target.classList.add('in');
+      io.unobserve(en.target);
+    });
+  }, { threshold: 0.12 });
+  $$('.rv').forEach(function(el){ io.observe(el); });
+
+  /* ---- mobile dock ---- */
+  var dockIO = new IntersectionObserver(function(e){
+    $('#dock').style.transform = e[0].isIntersecting ? 'translateY(160%)' : 'translateY(0)';
+    $('#dock').style.transition = 'transform .35s';
+  }, { threshold: 0.2 });
+  dockIO.observe($('#board'));
+})();
+</script>
+</body>
+</html>

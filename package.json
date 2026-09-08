@@ -1,0 +1,14 @@
+{
+  "name": "cardora",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Cardora gift-card offer directory — static site",
+  "scripts": {
+    "check": "node tools/check.mjs",
+    "test": "npm install --no-audit --no-fund && node tools/dom-test.mjs",
+    "serve": "python3 -m http.server 8080 --bind 0.0.0.0"
+  },
+  "devDependencies": {
+    "jsdom": "^24.1.0"
+  }
+}

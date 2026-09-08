@@ -335,3 +335,50 @@ footer{border-top:2px solid var(--ink);margin-top:80px;padding:56px 0 34px;backg
   background:var(--paper-2);padding:22px 24px;margin:26px 0;box-shadow:var(--shadow-hard);
 }
 .prose .callout p:last-child{margin-bottom:0}
+
+/* --- advertising ----------------------------------------------------------
+   Slots are empty placeholders in the markup; assets/ads.js fills them.
+   An unfilled slot keeps its dashed outline + "Advertisement" label so the
+   layout stays honest before a network snippet is pasted in.
+   ------------------------------------------------------------------------- */
+.ad-slot{
+  position:relative;margin:28px auto;border:2px dashed rgba(23,19,15,.3);border-radius:12px;
+  min-height:100px;display:flex;align-items:center;justify-content:center;text-align:center;
+  background:rgba(23,19,15,.03);overflow:hidden;
+}
+.ad-slot::before{
+  content:"Advertisement";font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);opacity:.65;
+}
+.ad-slot.ad-loaded::before{position:absolute;top:5px;left:9px;font-size:9px;opacity:.5;z-index:2}
+.ad-slot.ad-loaded{border-style:solid;border-color:rgba(23,19,15,.18);background:var(--paper-2);display:block;min-height:0}
+.ad-slot.ad-off{display:none}
+.ad-slot--feed{margin:0;min-height:250px;border-style:solid;background:var(--paper-2);box-shadow:var(--shadow-hard)}
+.ad-host{display:none}
+body.ads-pending .ad-slot{display:none}
+
+/* sticky anchor banner + the mobile dock that would otherwise sit on it */
+.ad-slot[data-ad-slot="sticky"]{
+  position:fixed;left:0;right:0;bottom:0;margin:0;border:0;border-top:2px solid var(--ink);
+  border-radius:0;background:var(--paper);min-height:50px;z-index:940;
+  box-shadow:0 -8px 26px -16px rgba(23,19,15,.7);
+}
+body.has-sticky-ad{padding-bottom:var(--sticky-ad-h,50px)}
+body.has-sticky-ad .dock{bottom:calc(12px + var(--sticky-ad-h,50px))}
+
+/* drop the paper grain behind content so ad creatives render clean */
+html.grain-behind .grain{z-index:0}
+
+/* --- consent bar --------------------------------------------------------- */
+.consent{
+  position:fixed;left:0;right:0;bottom:0;z-index:1200;background:var(--ink);color:var(--paper);
+  border-top:2px solid var(--ink);padding:16px 20px;box-shadow:0 -12px 44px -22px rgba(0,0,0,.85);
+}
+.consent-in{max-width:var(--maxw);margin:0 auto;display:flex;gap:22px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.consent strong{font-family:'Fraunces',serif;font-size:19px}
+.consent p{font-size:13px;color:rgba(251,243,230,.76);margin-top:4px;max-width:62ch}
+.consent a{color:var(--gold)}
+.consent-btns{display:flex;gap:10px;flex-wrap:wrap}
+.consent .btn{background:var(--gold);color:var(--ink);border-color:var(--gold);box-shadow:3px 3px 0 var(--tangerine)}
+.consent .btn.ghost{background:transparent;color:var(--paper);box-shadow:3px 3px 0 rgba(251,243,230,.35)}
+@media(max-width:560px){ .consent-in{flex-direction:column;align-items:flex-start} .consent-btns{width:100%} .consent .btn{flex:1;justify-content:center} }

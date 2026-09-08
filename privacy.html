@@ -39,16 +39,17 @@
   <div class="wrap">
     <span class="eyebrow"><span class="dot"></span> Legal · plain English</span>
     <h1 style="max-width:16ch">Privacy policy.</h1>
-    <p class="lede" style="max-width:60ch">The short version: Cardora runs no analytics, sets no tracking cookies and sells nothing. The only things that touch your data are your own browser's local storage, a font service, and the affiliate network you land on when you click an offer.</p>
+    <p class="lede" style="max-width:60ch">The short version: Cardora runs no analytics and sells nothing. The things that touch your data are your own browser's local storage, a font service, the third-party ad networks that show the ads (only if you accept them), and the affiliate network you land on when you click an offer.</p>
   </div>
 </header>
+<div class="wrap"><div class="ad-slot" data-ad-slot="hero-bottom"></div></div>
 
 <section class="sec" style="padding-top:34px">
   <div class="wrap prose">
     <p class="updated mono">Last updated: <span id="updated">—</span> · Applies to every Cardora page</p>
 
     <div class="callout">
-      <p><strong>Operator note (delete before publishing):</strong> this policy is written to match what the code on these pages actually does. Before you publish, replace every <span class="mono">[bracketed]</span> placeholder, point <span class="mono">SUPPORT_EMAIL</span> in <span class="mono">assets/offers.js</span> at a real inbox, and name the affiliate network in section 5 instead of the generic description.</p>
+      <p><strong>Operator note (delete before publishing):</strong> this policy is written to match what the code on these pages actually does. Before you publish, replace every <span class="mono">[bracketed]</span> placeholder, point <span class="mono">SUPPORT_EMAIL</span> in <span class="mono">assets/offers.js</span> at a real inbox, name the affiliate network in section 5 and the ad networks in section 6 instead of the generic descriptions, and confirm the consent behaviour matches the countries you actually target.</p>
     </div>
 
     <h3>1. Who we are</h3>
@@ -57,18 +58,20 @@
     <h3>2. What Cardora collects from you</h3>
     <p>Almost nothing, by design. Browsing any Cardora page requires no account, no email and no personal information.</p>
     <ul>
-      <li><strong>No analytics.</strong> There is no analytics script, no ad pixel and no session recorder on these pages.</li>
-      <li><strong>No cookies.</strong> Cardora itself sets no cookies.</li>
+      <li><strong>No analytics or session recording.</strong> There is no analytics script, heat-map or session recorder on these pages.</li>
+      <li><strong>Cardora sets no cookies itself.</strong> The advertising networks described in section 6 do set their own — that is how ad targeting and frequency capping work, and it only happens if you accept them.</li>
       <li><strong>No account.</strong> There is nothing to sign in to and no profile to build.</li>
     </ul>
 
     <h3>3. What is stored on your own device</h3>
-    <p>Two small items are written to your browser's local storage, and neither leaves your device through us:</p>
+    <p>A few small items are written to your browser's local storage. None of them leave your device through us:</p>
     <ul>
       <li><span class="mono">cardora.clicks</span> — a running list (capped at 200 entries) of which offer buttons you clicked, when, and from which page. It exists so the site can remember your recent clicks. No personal data is in it.</li>
       <li><span class="mono">cardora.subs</span> — your email address, and only if you submit the "notify me" form while no mailing service is connected.</li>
+      <li><span class="mono">cardora.consent</span> — your accept/reject choice from the advertising banner, so we don't ask you again on the next page.</li>
+      <li><span class="mono">cardora.adcap</span> — timestamps of the last full-page ad (pop-under, interstitial), so the same format isn't shown to you repeatedly.</li>
     </ul>
-    <p>Delete either one at any time through your browser's site-data settings, or clear all site data for this domain. Because they are local to your browser, deleting them removes them completely — there is no server copy held by Cardora.</p>
+    <p>Delete any of these at any time through your browser's site-data settings, or clear all site data for this domain. Because they are local to your browser, deleting them removes them completely — there is no server copy held by Cardora.</p>
 
     <h3>4. The email you may choose to give us</h3>
     <p>If you subscribe to offer notifications, we use your address for that one purpose: sending the occasional email when an offer clears our own bar. We do not sell it, rent it, or share it with the partners whose offers we list. Every email contains a one-click unsubscribe, and unsubscribing removes the address. If a mailing provider is connected to the form, that provider processes the address on our behalf under its own data-processing terms.</p>
@@ -83,22 +86,42 @@
     </ul>
     <p>You can reduce this tracking by using a private window or by not clicking offers. Note that most partners <em>decline</em> offers completed in a private window or behind a VPN, because they cannot attribute the activity — that trade-off is described on the offer pages themselves.</p>
 
-    <h3>6. Third-party services loaded by these pages</h3>
-    <p>Pages load web fonts from Google Fonts (<span class="mono">fonts.googleapis.com</span> / <span class="mono">fonts.gstatic.com</span>). Google receives your IP address and standard request headers when those files load, and handles them under its own privacy policy. No other third-party asset is loaded by Cardora pages.</p>
+    <h3>6. Advertising on Cardora</h3>
+    <p>Cardora is free to use and is funded by two things: affiliate commission on the offers we list (section 5) and advertising. Ads are served by third-party ad networks, not by Cardora, and the creatives you see are chosen by those networks.</p>
+    <p><strong>Formats used.</strong> Depending on the page and your device, you may be shown:</p>
+    <ul>
+      <li>banner and native units inside the page, including between the offer cards;</li>
+      <li>an anchor banner fixed to the bottom of the screen;</li>
+      <li>a full-page interstitial, and a pop-under window that opens behind your browser tab.</li>
+    </ul>
+    <p>Pop-unders and interstitials are shown at most once every few hours per browser; the timestamps used for that limit are the <span class="mono">cardora.adcap</span> item described above. You can close a pop-under at any time — it is not required in order to use the site or to complete an offer.</p>
+    <p><strong>What the ad networks see.</strong> To serve and measure ads, the networks receive your IP address, browser and device information, the page you are on, and approximate location derived from the IP. They set their own cookies and identifiers on their own domains, and they may use them to personalise ads and to recognise you on other sites in their network. Cardora does not control that processing and this policy does not cover it; the networks' own privacy policies do. We do not receive your browsing history from them, and we do not pass any personal data of ours to them.</p>
+    <p><strong>Ad content is not ours.</strong> Advertisements are chosen by the networks and can change at any time. Cardora does not endorse them, is not responsible for their content, and offers no relationship with the advertisers. If an ad looks misleading or broken, the report button on the ad itself and the network's own channels are the route that gets it removed.</p>
+    <p><strong>Your choices.</strong></p>
+    <ul>
+      <li>Choose <strong>"No ads"</strong> on the banner that appears on your first visit — no ad scripts are then loaded at all, and the offers work exactly the same.</li>
+      <li>Clear site data for this domain to reset that choice.</li>
+      <li>Enable <strong>Do Not Track</strong>, use a private window, or use an ad blocker. Cardora honours Do Not Track when the site operator has that setting switched on.</li>
+      <li>Opt out of interest-based advertising industry-wide via your region's ad-choice programmes (for example the DAA WebChoices tool or the EDAA Your Online Choices page).</li>
+    </ul>
+    <p>Visitors from the UK and the EEA are asked for consent before any advertising script runs, in line with UK GDPR and the PECR. If you reject, only first-party functionality remains active.</p>
 
-    <h3>7. Children</h3>
+    <h3>7. Other third-party services</h3>
+    <p>Pages load web fonts from Google Fonts (<span class="mono">fonts.googleapis.com</span> / <span class="mono">fonts.gstatic.com</span>). Google receives your IP address and standard request headers when those files load, and handles them under its own privacy policy. Apart from the advertising networks in section 6, no other third-party service is loaded by Cardora pages.</p>
+
+    <h3>8. Children</h3>
     <p>Every offer listed requires you to be 18 or older and resident in the US, Canada or the UK. Cardora is not directed at children, and we do not knowingly collect information from anyone under 18.</p>
 
-    <h3>8. Your rights</h3>
+    <h3>9. Your rights</h3>
     <p>Depending on where you live — including under the GDPR, the UK GDPR, the CCPA/CPRA and Canadian privacy law — you may have rights to access, correct, delete or port personal data, and to object to processing. Because Cardora holds at most an email address you chose to give us, most requests are answered by simply deleting it: email <a href="#" id="mailto2">—</a> and we will action it. We do not sell personal information, and we have never done so.</p>
 
-    <h3>9. Security</h3>
+    <h3>10. Security</h3>
     <p>These pages are static and served over HTTPS. The only data at rest is what your own browser stores locally. If we ever hold email addresses on a server, they are kept with a provider that encrypts data in transit and at rest, and access is limited to the operator.</p>
 
-    <h3>10. Changes</h3>
+    <h3>11. Changes</h3>
     <p>If this policy changes in a way that affects what we collect, the date at the top of this page changes with it. Material changes will also be noted on the hub page for a period after they take effect.</p>
 
-    <h3>11. Contact</h3>
+    <h3>12. Contact</h3>
     <p>Questions about this policy, or a request about your data: <a href="#" id="mailto3">—</a>. We answer support email directly; there is no ticket queue and no chatbot.</p>
 
     <div class="disclosure" style="margin-top:44px">
@@ -110,6 +133,7 @@
 </section>
 
 <!-- ======================= FOOTER ======================= -->
+<div class="wrap" style="padding-top:8px"><div class="ad-slot" data-ad-slot="pre-footer"></div></div>
 <footer>
   <div class="wrap">
     <div class="f-grid">
@@ -148,6 +172,8 @@
 </footer>
 
 <script src="assets/offers.js"></script>
+<script src="assets/ads.js"></script>
+<div class="ad-slot" data-ad-slot="sticky"></div>
 <script>
 (function(){
   'use strict';

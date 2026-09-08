@@ -124,6 +124,49 @@ for (const cls of ['.nav', '.btn', '.card', '.meter-fill', '.fq', '.disclosure',
   ok('shared class present: ' + cls, css.includes(cls + '{') || css.includes(cls + ' ') || css.includes(cls + ',') || css.includes(cls + ':'));
 }
 
+
+/* ---------------------------------------------------------------- 4. ads */
+section('assets/ads.js — ad layer');
+const adsPath = path.join(ROOT, 'assets/ads.js');
+ok('ad layer exists', fs.existsSync(adsPath));
+if (fs.existsSync(adsPath)) {
+  const ads = fs.readFileSync(adsPath, 'utf8');
+  let parsed = true, err = '';
+  try { new vm.Script(ads, { filename: 'assets/ads.js' }); } catch (e) { parsed = false; err = e.message; }
+  ok('ads.js parses', parsed, err);
+  for (const fn of ['popunder', 'socialBar', 'interstitial', 'formats', 'consent', 'caps']) {
+    ok('config exposes ' + fn, ads.includes(fn + ':'));
+  }
+  ok('consent gate before loading', /showConsent/.test(ads) && /CONSENT_KEY/.test(ads));
+  ok('frequency caps implemented', /function capped/.test(ads) && /ADCAP|adcap/.test(ads));
+  ok('script tags rebuilt (innerHTML cannot execute them)', /createElement\('script'\)/.test(ads));
+  ok('in-feed injection observes grid changes', /MutationObserver/.test(ads) && /data-ad-feed|adFeed/.test(ads));
+}
+for (const page of PAGES) {
+  const html = fs.readFileSync(path.join(ROOT, page), 'utf8');
+  const markup = html.replace(/<script[\s\S]*?<\/script>/g, '');
+  ok(page + ': loads ads.js after offers.js',
+    html.indexOf('assets/offers.js') > -1 &&
+    html.indexOf('assets/ads.js') > html.indexOf('assets/offers.js'));
+  for (const slot of ['hero-bottom', 'pre-footer', 'sticky']) {
+    ok(page + ': has slot ' + slot, markup.includes('data-ad-slot="' + slot + '"'));
+  }
+}
+/* index + gaming grids must be marked for in-feed injection */
+for (const page of ['index.html', 'gaming.html']) {
+  ok(page + ': grid marked data-ad-feed', /id="grid" data-ad-feed/.test(fs.readFileSync(path.join(ROOT, page), 'utf8')));
+}
+/* the privacy policy must describe the ad reality, not the old no-ads claim */
+section('privacy.html — matches the ad reality');
+const priv = fs.readFileSync(path.join(ROOT, 'privacy.html'), 'utf8');
+ok('no stale "no ad pixel" claim', !/no ad pixel/i.test(priv));
+ok('no stale "no other third-party asset" claim', !/No other third-party asset is loaded/i.test(priv));
+ok('documents ad formats', /pop-under/i.test(priv) && /interstitial/i.test(priv) && /anchor banner/i.test(priv));
+ok('documents ad-network cookies', /ad networks?[^.]*cookies|networks receive your IP/i.test(priv.replace(/\s+/g,' ')));
+ok('documents how to turn ads off', /No ads/i.test(priv) && /ad blocker/i.test(priv));
+ok('documents UK/EEA consent', /UK GDPR/i.test(priv) && /consent/i.test(priv));
+ok('terms cover advertising', /Advertising on this site/.test(fs.readFileSync(path.join(ROOT, 'terms.html'), 'utf8')));
+
 console.log('\n' + '='.repeat(46));
 console.log(failures === 0 ? 'ALL CHECKS PASSED' : failures + ' CHECK(S) FAILED');
 console.log('='.repeat(46));

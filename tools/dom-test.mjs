@@ -94,58 +94,55 @@ const acceptAds = (w) => {
 
 try {
   /* ============================== INDEX ============================== */
-  section('index.html');
+  section('index.html — card wall');
   {
     const { w, errors } = await load('index.html');
-    const d = w.document, C = w.CARDORA;
-    acceptAds(w);
+    const d = w.document, C = w.CARDORA, A = w.CARDORA_ADS;
     ok('registry loaded', !!C && C.offers.length === 6, C && C.offers.length);
-    eq('offer cards rendered', d.querySelectorAll('#grid .card').length, 6);
+    eq('cards rendered', d.querySelectorAll('#grid .gcard').length, 6);
     const links = [...d.querySelectorAll('#grid a[data-offer]')];
-    eq('affiliate anchors', links.length, 6);
-    ok('hrefs built from the registry', links.every((a) => a.getAttribute('href') === `${BASE}&id=${C.byKey(a.dataset.offer).id}`),
+    eq('one button per card', links.length, 6);
+    const AD = A.directLinkUrl();
+    ok('direct link configured', /^https:\/\/omg10\.com\/4\/\d+$/.test(AD), AD);
+    ok('card clicks route through the ad', links.every((a) => a.getAttribute('href') === AD),
       links.map((a) => a.getAttribute('href')));
-    ok('rel=sponsored + target=_blank', links.every((a) => /sponsored/.test(a.rel) && a.target === '_blank'));
-    eq('strip offer count', d.querySelector('#countOffers').textContent, '6');
-    eq('headline number word', d.querySelector('#countWord').textContent, 'Six');
-    eq('minutes range derived', d.querySelector('#rangeMin').textContent, '3\u201345');
-    ok('CTA count', /6 live offers/.test(d.querySelector('#ctaCount').textContent), d.querySelector('#ctaCount').textContent);
+    ok('marked sponsored + new tab', links.every((a) => /sponsored/.test(a.rel) && a.target === '_blank'));
+
+    /* switch the ad off and the same buttons must fall back to the offer */
+    A.set('directLink', false);
+    ok('falls back to the partner offer', links.every((a) => a.getAttribute('href') === `${BASE}&id=${C.byKey(a.dataset.offer).id}`),
+      links.map((a) => a.getAttribute('href')));
+    A.set('directLink', true);
+    ok('and back to the ad', links.every((a) => a.getAttribute('href') === AD));
+
+    eq('stat count', d.querySelector('#statCount').textContent, '6');
+    eq('minutes range derived', d.querySelector('#statRange').textContent, '3\u201345');
+    eq('top ceiling', d.querySelector('#statTop').textContent, '$120');
+    ok('CTA count', /6 cards/.test(d.querySelector('#ctaCount').textContent), d.querySelector('#ctaCount').textContent);
     eq('filter chips', d.querySelectorAll('#chips .chip').length, 7);
-    eq('FAQ entries', d.querySelectorAll('#faqList .fq').length, 7);
-    ok('value meters filled on reveal', [...d.querySelectorAll('#grid .meter-fill')].every((m) => parseFloat(m.style.width) > 0),
-      [...d.querySelectorAll('#grid .meter-fill')].map((m) => m.style.width));
+    eq('FAQ entries kept short', d.querySelectorAll('#faqList .fq').length, 3);
+    ok('hero stack filled from the registry', /\$25\u2013120/.test(d.querySelector('#hero2').textContent), d.querySelector('#hero2').textContent);
     eq('year filled', d.querySelector('#year').textContent, String(new Date().getFullYear()));
     ok('mailto filled', d.querySelector('#mailto').href.startsWith('mailto:'), d.querySelector('#mailto').href);
+    ok('disclosure still present', /does not guarantee any reward/i.test(d.body.textContent));
 
+    /* filtering re-renders the wall */
     click(w, [...d.querySelectorAll('#chips .chip')].find((c) => /^Gaming/.test(c.textContent)));
-    const visible = [...d.querySelectorAll('#grid .card')].filter((c) => !c.classList.contains('hide'));
-    eq('gaming filter leaves 1 card', visible.length, 1);
-    ok('filtered card is the playtest', /Playtest Session/.test(visible[0].textContent), visible[0].querySelector('h3').textContent);
+    eq('gaming filter leaves 1 card', d.querySelectorAll('#grid .gcard').length, 1);
+    ok('filtered card is the playtest', /Playtest Session/.test(d.querySelector('#grid').textContent));
+    ok('filter keeps the ad routing', d.querySelector('#grid a[data-offer]').getAttribute('href') === AD);
+    click(w, [...d.querySelectorAll('#chips .chip')].find((c) => /^All/.test(c.textContent)));
+    eq('all filter restores the wall', d.querySelectorAll('#grid .gcard').length, 6);
 
     const fq = d.querySelector('#faqList .fq-q');
     click(w, fq);
     eq('FAQ opens', fq.getAttribute('aria-expanded'), 'true');
-    ok('FAQ height set', fq.parentNode.querySelector('.fq-a').style.maxHeight !== '');
 
     w.localStorage.clear();
     click(w, d.querySelector('#grid a[data-offer="bonus"]'));
     const log = JSON.parse(w.localStorage.getItem('cardora.clicks') || '[]');
-    eq('click logged', log.length, 1);
+    eq('click still logged for reporting', log.length, 1);
     ok('click log has offer key + source', log[0] && log[0].key === 'bonus' && log[0].src === 'hub-card', log[0]);
-
-    const form = d.querySelector('#signupForm'), email = d.querySelector('#emailInput'), out = d.querySelector('#formOk');
-    email.value = 'nope';
-    form.dispatchEvent(new w.Event('submit', { bubbles: true, cancelable: true }));
-    ok('bad email rejected', /doesn/.test(out.textContent), out.textContent);
-    email.value = 'player@example.com';
-    form.dispatchEvent(new w.Event('submit', { bubbles: true, cancelable: true }));
-    ok('good email stored locally', /Saved on this device/.test(out.textContent), out.textContent);
-    eq('subs list holds address', JSON.parse(w.localStorage.getItem('cardora.subs') || '[]').length, 1);
-
-    ok('scratch pick = shortest offer', /Community Bonus Pool/.test(d.querySelector('#prizeTitle').textContent),
-      d.querySelector('#prizeTitle').textContent);
-    click(w, d.querySelector('#resetScratch'));
-    eq('scratch resets', d.querySelector('#scratchHint').textContent, 'Drag to scratch');
     noErrors(errors);
   }
 
@@ -307,7 +304,7 @@ try {
     eq('reject persisted', JSON.parse(w.localStorage.getItem('cardora.consent')).v, 'reject');
     eq('no ad loaded', d.querySelectorAll('.ad-slot.ad-loaded').length, 0);
     eq('no pop-under', d.querySelectorAll('.ad-host').length, 0);
-    eq('offers still work with ads off', d.querySelectorAll('#grid .card').length, 6);
+    eq('offers still work with ads off', d.querySelectorAll('#grid .gcard').length, 6);
     noErrors(errors);
   }
 

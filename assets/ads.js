@@ -98,6 +98,9 @@
   };
 
   /* ============================ ENGINE ============================ */
+  var listeners = [];
+  function notify(){ listeners.forEach(function (fn) { try { fn(); } catch (e) {} }); }
+
   var CAP_KEY = 'cardora.adcap';
   var CONSENT_KEY = 'cardora.consent';
   var started = false;
@@ -312,14 +315,17 @@
         fillSlot(el);
       });
       watchFeeds();
+      notify();
     },
+    /* Pages subscribe so click routing follows config changes. */
+    onChange: function (fn) { if (typeof fn === 'function') listeners.push(fn); },
     consent: consentState,
     directLinkUrl: function () {
       return (CONFIG.formats.directLink && CONFIG.directLink.url) || '';
     },
     /* Flip a format off at runtime, e.g. CARDORA_ADS.set('popunder', false) */
     set: function (name, on) {
-      if (CONFIG.formats.hasOwnProperty(name)) CONFIG.formats[name] = on;
+      if (CONFIG.formats.hasOwnProperty(name)) { CONFIG.formats[name] = on; notify(); }
     }
   };
 })(window);

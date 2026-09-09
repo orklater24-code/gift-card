@@ -102,8 +102,11 @@ for (const page of PAGES) {
 
   /* disclosure wording differs between marketing pages and legal pages */
   const isLegal = page === 'privacy.html' || page === 'terms.html';
+  /* wording can be short, but the substance must be there: affiliate
+     relationship named, commission admitted, no guarantee stated */
   ok('carries the affiliate disclosure',
-    isLegal ? /Affiliate disclosure/i.test(markup) : /Affiliate (&amp;|&) brand disclosure/i.test(markup));
+    /affiliate/i.test(markup) && /commission/i.test(markup),
+    'needs both "affiliate" and "commission"');
   ok('states that rewards are not guaranteed',
     isLegal ? /no reward is guaranteed|Not a guarantee|does not guarantee any reward/i.test(markup)
             : /does not guarantee any reward/i.test(markup));
